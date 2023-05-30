@@ -1,0 +1,8 @@
+.success-btn {
+    background-color: #0EBC15;
+
+    &:is(:hover, :focus){
+        color: var(--white);
+        background-color: #0ebc14d5 !important;
+    }
+}

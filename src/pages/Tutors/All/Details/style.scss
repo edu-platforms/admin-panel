@@ -1,0 +1,110 @@
+.tutor-details-wrapper {
+  padding-top: 22px;
+}
+
+.ant-tabs {
+  position: relative;
+
+  &-tab {
+    color: #aaa !important;
+    width: 169px;
+    border: none !important;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+    justify-content: center;
+    background-color: #eee !important;
+
+    &-active {
+      background-color: #4763E4 !important;
+    }
+  }
+
+  &-content-holder {
+    margin-top: 42px !important;
+  }
+
+  &-nav {
+    position: static !important;
+
+    &-wrap {
+      right: 0 !important;
+      z-index: 10;
+      position: absolute !important;
+      border-radius: 12px !important;
+    }
+  }
+
+  [aria-selected="true"] {
+    color: #fff !important;
+  }
+
+}
+
+.tutor-details-title {
+  top: -50px;
+  color: #000000;
+  z-index: 1001;
+  position: absolute;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 39px;
+}
+
+.sub-title {
+  color: #27272A;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 22px;
+  margin-bottom: 40px;
+}
+
+.sub-title-bottom {
+  color: #27272A;
+  font-size: 18px;
+  font-style: normal;
+  margin-top: 40px;
+  font-weight: 500;
+  line-height: 22px;
+  margin-bottom: 20px;
+}
+
+// Feedback Component
+
+.f-wrapper {
+  border: 1px solid #E8E4E4;
+  padding: 15px 20px 20px 20px;
+  background: #F5F8FC;
+  border-radius: 10px;
+}
+
+.f-user {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.f-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.f-date {
+  font-size: 14px;
+  line-height: 17px;
+  color: #999;
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.f-feedback {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 10px;
+  color: #1c1c1c;
+}

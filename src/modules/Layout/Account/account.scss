@@ -1,0 +1,15 @@
+.account {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+
+  &__icon {
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+}
