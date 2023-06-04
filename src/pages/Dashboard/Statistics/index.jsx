@@ -1,25 +1,25 @@
 import { Col, Row, Statistic } from "antd";
 import { formatter } from "../constants";
 
-export const Statistics = () => (
+export const Statistics = ({statistics}) => (
   <Row gutter={16}>
     <Col span={6}>
-      <Statistic title="Tutors" value={112893} formatter={formatter} />
+      <Statistic title="Tutors" value={statistics.tutors} formatter={formatter} />
     </Col>
     <Col span={6}>
-      <Statistic title="Students" value={112893} formatter={formatter} />
+      <Statistic title="Students" value={statistics.students} formatter={formatter} />
     </Col>
     <Col span={6}>
       <Statistic
         title="Students (adults)"
-        value={112893}
+        value={statistics.studentadults}
         formatter={formatter}
       />
     </Col>
     <Col span={6}>
       <Statistic
         title="Students (kids)"
-        value={112893}
+        value={statistics.studenkids}
         precision={2}
         formatter={formatter}
       />

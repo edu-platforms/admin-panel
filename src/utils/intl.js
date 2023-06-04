@@ -6,10 +6,7 @@ export const dictionaryWithKeys = (text, params) => {
       const trimmedParamKey = paramKey.trim();
       const searchValue = `{${trimmedParamKey}}`;
 
-      dictItem = dictItem.replace(
-        new RegExp(searchValue, "g"),
-        `${params[trimmedParamKey]}`
-      );
+      dictItem = dictItem.replace(new RegExp(searchValue, 'g'), `${params[trimmedParamKey]}`);
     });
   }
 

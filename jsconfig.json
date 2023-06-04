@@ -9,7 +9,6 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "styles": ["src/styles"],
     },
     "allowJs": true,
     "skipLibCheck": true,

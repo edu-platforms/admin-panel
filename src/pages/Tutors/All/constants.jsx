@@ -1,35 +1,19 @@
 import { allTutorDictionary } from "./dictionary";
 import { View } from "@/components";
 import { ROUTES } from "@/constants";
-
-export const dataSource = [
-  {
-    id: "1",
-    name: "Asad",
-    surname: "ZZZ",
-    accent: "British",
-    join: '12/05/2022',
-  },
-  {
-    id: "2",
-    name: "Jhone",
-    surname: "Doe",
-    accent: "British",
-    join: '12/05/2022',
-  },
-];
+import { dateFormatter } from "@/utils";
 
 export const tutorColumn = [
   {
     title: allTutorDictionary.columns.name,
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "firstname",
+    key: "firstname",
     align: "center",
   },
   {
     title: allTutorDictionary.columns.surname,
-    dataIndex: "surname",
-    key: "surname",
+    dataIndex: "lastname",
+    key: "lastname",
     align: "center",
   },
   {
@@ -40,9 +24,10 @@ export const tutorColumn = [
   },
   {
     title: allTutorDictionary.columns.join,
-    dataIndex: "join",
-    key: "join",
+    dataIndex: "createdAt",
+    key: "createdAt",
     align: "center",
+    render: (value) => dateFormatter(value),
   },
   {
     title: allTutorDictionary.columns.actions,

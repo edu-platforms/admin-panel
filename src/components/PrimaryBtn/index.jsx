@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import classnames from "classnames";
 import classnameBind from "classnames/bind";
-import styles from "./primary-btn.scss";
+import styles from "./primary-btn.module.scss";
 
 const cn = classnameBind.bind(styles);
 

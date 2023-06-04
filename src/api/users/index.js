@@ -1,8 +1,9 @@
 import { Instance } from "../instance";
 import { endpoints } from "../endpoints";
+import { dictionaryWithKeys } from "@/utils";
 
 const config = {
-  baseURL: endpoints.users,
+  baseURL: endpoints.user,
 };
 
 class UsersApi extends Instance {
@@ -10,15 +11,21 @@ class UsersApi extends Instance {
     super(config);
   }
 
-  getTutorRequests = (params) => this.get(endpoints.empty, { params });
+  getDashboard = () => this.get(endpoints.dashboard);
 
-  getSingleCourse = (id) => this.get(`/${id}`);
+  getTutors = (params) => this.get(endpoints.tutors, { params });
 
-  createCourse = (params) => this.post(endpoints.empty, params);
+  getTutorRequests = (params) => this.get(endpoints.tutorRequests, { params });
 
-  updateCourse = (params) => this.patch(`/${params.id}`, params);
+  getOne = (params) =>
+    this.get(dictionaryWithKeys(endpoints.param, {
+      param: params.id,
+    }));
 
-  deleteCourse = (id) => this.delete(`/${id}`);
+  acceptReject = (params) => this.put(dictionaryWithKeys(endpoints.acceptReject, {
+    param: params.id,
+  }), params);
+
 }
 
 export const usersApi = new UsersApi(config);

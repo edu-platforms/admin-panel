@@ -35,10 +35,10 @@ export const RequestsTable = () => {
       dataSource={courses}
       loading={loading.get}
       pagination={{
-        total,
         onShowSizeChange: handleShowSizeChange,
         onChange: handlePageChange,
         showSizeChanger: true,
+        total,
         pageSize: limit,
         current: page,
         ...getPaginationParams(total),

@@ -2,7 +2,7 @@ import { Instance } from "../instance";
 import { endpoints } from "../endpoints";
 
 const config = {
-  baseURL: endpoints.admin,
+  baseURL: endpoints.user,
 };
 
 class AuthApi extends Instance {
@@ -12,11 +12,11 @@ class AuthApi extends Instance {
 
   signIn = (params) => this.post(endpoints.signIn, params);
 
-  resetPassword = (params) => this.post(endpoints.resetPsw, params);
+  sendEmail = (params) => this.post(endpoints.sendEmail, params);
 
-  changePassword = (params) => this.post(endpoints.changePsw, params);
+  checkCode = (params) => this.post(endpoints.checkCode, params);
 
-  resetVerify = (params) => this.post(endpoints.resetVerify, params);
+  changePsw = (params) => this.post(endpoints.changePsw, params);
 }
 
 export const authApi = new AuthApi(config);

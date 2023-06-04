@@ -6,7 +6,7 @@ import { authDictionary } from "../dictionary";
 
 export const SignIn = () => {
   const dispatch = useDispatch();
-  const login = { email: "mansurov.jr@mail.ru", password: "030200" };
+  const login = { email: "mansurov.jr@mail.ru", password: "Nozim0302" };
 
   const handleFinish = (values) => {
     dispatch(signIn(values));

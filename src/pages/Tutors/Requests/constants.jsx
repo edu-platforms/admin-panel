@@ -1,35 +1,18 @@
-import { RequestActions } from "./Actions";
+import { View } from "@/components";
 import { requestDictionary } from "./dictionary";
 import { ROUTES } from "@/constants";
-
-export const dataSource = [
-  {
-    id: "1",
-    name: "Mike",
-    surname: "Doe",
-    accent: "British",
-    from: "British",
-  },
-  {
-    id: "2",
-    name: "Jhone",
-    surname: "Doe",
-    accent: "British",
-    from: "British",
-  },
-];
 
 export const requestsColumn = [
   {
     title: requestDictionary.columns.name,
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "firstname",
+    key: "firstname",
     align: "center",
   },
   {
     title: requestDictionary.columns.surname,
-    dataIndex: "surname",
-    key: "surname",
+    dataIndex: "lastname",
+    key: "lastname",
     align: "center",
   },
   {
@@ -40,15 +23,15 @@ export const requestsColumn = [
   },
   {
     title: requestDictionary.columns.from,
-    dataIndex: "from",
-    key: "from",
+    dataIndex: "address",
+    key: "address",
     align: "center",
   },
   {
     title: requestDictionary.columns.actions,
-    key: "actions",
+    dataIndex: "id",
     align: "center",
-    render: (value, record) => <RequestActions record={record} />,
+    render: (value) => <View link={`${ROUTES.tutorRequests}/${value}`} />,
   },
 ];
 

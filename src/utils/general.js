@@ -1,11 +1,12 @@
 import { stage } from "@/config";
 
-export const VALID_MIME_TYPES = [".pdf", ".pptx"];
 export const cdnUrl = new URL(stage.cdnHost);
+export const VALID_MIME_TYPES = [".pdf", ".pptx"];
+export const passwordRegex = new RegExp(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9][a-zA-Z0-9!@#$%^&*.,_-]{6,17}$/)
 export const loadings = {
   get: "get",
   post: "post",
-  path: "path",
+  put: "put",
   delete: "delete",
 };
 
