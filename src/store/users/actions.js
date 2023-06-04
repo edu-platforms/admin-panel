@@ -1,100 +1,77 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { usersApi } from "../../api";
+import { usersApi } from "@/api";
 import { userActions } from "./features";
 import { addNotification } from "@/utils";
 import { history, loadings } from "@/utils";
 import { ROUTES } from "@/constants";
 
-export const getTutorRequests = createAsyncThunk(
-  "get/tutor-requests",
-  async (params, { dispatch }) => {
+export const getDashboard = createAsyncThunk(
+  "get/dashboard",
+  async () => {
     try {
-      dispatch(userActions.setLoading(loadings.get));
-      const res = await usersApi.getTutorRequests(params);
+      const res = await usersApi.getDashboard();
 
-      console.log(res);
-      if (res.code) {
-        dispatch(userActions.setTutorRequests(res));
-      }
+      if (res.data) return res.data
     } catch (e) {
       addNotification(e);
-    } finally {
-      dispatch(userActions.setLoading(loadings.get));
     }
   }
 );
 
-// export const getSingleCourse = createAsyncThunk(
-//   "get/single-course",
-//   async (id, { dispatch }) => {
-//     try {
-//       dispatch(userActions.setLoading(loadings.get));
-//       const res = await usersApi.getSingleCourse(id);
+export const getTutors = createAsyncThunk(
+  "get/tutors",
+  async (params) => {
+    try {
+      const res = await usersApi.getTutors(params);
 
-//       if (res.code) {
-//         dispatch(userActions.setCourse(res.data));
-//       }
-//     } catch (e) {
-//       addNotification(e);
-//     } finally {
-//       dispatch(userActions.setLoading(loadings.get));
-//     }
-//   }
-// );
+      if (res.data) return res
+    } catch (e) {
+      addNotification(e);
+    }
+  }
+);
 
-// export const createCourse = createAsyncThunk(
-//   "create/course",
-//   async (params, { dispatch }) => {
-//     try {
-//       const res = await usersApi.createCourse(params);
+export const getTutorRequests = createAsyncThunk(
+  "get/tutor-requests",
+  async (params) => {
+    try {
+      const res = await usersApi.getTutorRequests(params);
 
-//       if (res.code) {
-//         addNotification(res.message);
-//         history.push(ROUTES.coursesAll);
-//       }
-//     } catch (e) {
-//       addNotification(e);
-//     } finally {
-//       dispatch(userActions.setLoading(loadings.create));
-//     }
-//   }
-// );
+      if (res.data) return res
+    } catch (e) {
+      addNotification(e);
+    }
+  }
+);
 
-// export const updateCourse = createAsyncThunk(
-//   "update/course",
-//   async (params, { dispatch }) => {
-//     try {
-//       const res = await usersApi.updateCourse(params);
+export const getOne = createAsyncThunk(
+  "get/one",
+  async (params) => {
+    try {
+      const res = await usersApi.getOne(params);
 
-//       if (res.code) {
-//         addNotification(res.message);
-//         history.back();
-//       }
-//     } catch (e) {
-//       addNotification(e);
-//     } finally {
-//       dispatch(userActions.setLoading(loadings.update));
-//     }
-//   }
-// );
+      if (res.data) return res.data
+    } catch (e) {
+      addNotification(e);
+    }
+  }
+);
 
-// export const deleteCourse = createAsyncThunk(
-//   "delete/course",
-//   async (id, { dispatch }) => {
-//     try {
-//       dispatch(userActions.setLoading(loadings.delete));
-//       dispatch(userActions.setDeletedCourseId(id));
-//       const res = await usersApi.deleteCourse(id);
+export const acceptReject = createAsyncThunk(
+  "user/accept-reject",
+  async (params) => {
+    dispatch(userActions.setLoading(loadings.put));
+    try {
+      const res = await usersApi.acceptReject(params);
 
-//       if (res.code) {
-//         addNotification(res.message);
-//         dispatch(userActions.removeCourse(res.data));
-//       }
-//     } catch (e) {
-//       addNotification(e);
-//     } finally {
-//       dispatch(userActions.setDeletedCourseId(null));
-//       dispatch(userActions.setLoading(loadings.delete));
-//     }
-//   }
-// );
+      if (res.data) {
+        addNotification("Success")
+        history.back()
+      }
+    } catch (e) {
+      addNotification(e);
+    } finally {
+      dispatch(userActions.setLoading(loadings.put));
+    }
+  }
+);

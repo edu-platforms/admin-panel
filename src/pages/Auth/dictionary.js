@@ -11,6 +11,7 @@ export const authDictionary = {
   password: "Password",
   confirmPsw: "Confirm password",
   passwordPlaceholder: "********************",
+  passwordMessage: "Password must contain uppercase and lowercase letters and digits",
 
   // Forget
   yourEmail: "Your email",

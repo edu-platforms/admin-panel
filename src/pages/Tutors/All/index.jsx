@@ -1,13 +1,13 @@
-import { useBreadCrumbs } from "@/hooks";
+import { useDebounce, useBreadCrumbs } from "@/hooks";
 import { tutorAllBreadcrumb } from "./constants";
 import { Title, MainSearch } from "@/components";
 import { TutorTable } from "./Table";
 import { allTutorDictionary } from "./dictionary";
+import { userActions } from "@/store";
 
 export const AllTutors = () => {
+  const { onSearch } = useDebounce(userActions.setQuery);
   useBreadCrumbs(tutorAllBreadcrumb);
-
-  const onSearch = () => { };
 
   return (
     <>

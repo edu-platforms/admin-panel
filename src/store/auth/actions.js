@@ -12,11 +12,11 @@ export const signIn = createAsyncThunk(
       dispatch(authActions.setLoading(true));
       const res = await authApi.signIn(params);
 
-      if (res.code && res.data.user_role === "admin") {
-        const { token, data } = res;
+      if (res.data && res.data.role === "admin") {
+        const { data } = res;
 
-        setLocalStorage("access-token", token);
-        setLocalStorage("admin", data);
+        setLocalStorage("access-token", data.token);
+        setLocalStorage("admin", { firstName: data.firstname, lastName: data.lastname, email: data.email, photo: data.photo });
         dispatch(authActions.setAuth(true));
       }
     } catch (e) {
@@ -27,13 +27,14 @@ export const signIn = createAsyncThunk(
   }
 );
 
-export const resetPassword = createAsyncThunk(
-  "admin/reset-password",
+export const sendEmail = createAsyncThunk(
+  "admin/send-email",
   async (params, { dispatch }) => {
     try {
       dispatch(authActions.setLoading(true));
-      const res = await authApi.resetPassword(params);
+      const res = await authApi.sendEmail(params);
 
+      console.log(res);
       if (res.code) {
         addNotification(res.message);
         setLocalStorage("admin-email", params.email);
@@ -47,12 +48,12 @@ export const resetPassword = createAsyncThunk(
   }
 );
 
-export const resetVerify = createAsyncThunk(
-  "admin/reset-verify",
+export const checkCode = createAsyncThunk(
+  "admin/check-code",
   async (params, { dispatch }) => {
     try {
       dispatch(authActions.setLoading(true));
-      const res = await authApi.resetVerify(params);
+      const res = await authApi.checkCode(params);
 
       if (res.message) {
         addNotification(res.message);
@@ -68,12 +69,12 @@ export const resetVerify = createAsyncThunk(
   }
 );
 
-export const changePassword = createAsyncThunk(
+export const changePsw = createAsyncThunk(
   "admin/change-password",
-  async (params) => {
+  async (params, { dispatch }) => {
     try {
       dispatch(authActions.setLoading(true));
-      const res = await authApi.changePassword(params);
+      // const res = await authApi.changePsw(params);
     } catch (e) {
       addNotification(e);
     } finally {

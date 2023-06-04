@@ -18,11 +18,11 @@ export const App = () => {
   return (
     <HistoryRouter history={history}>
       <Provider store={store}>
-        <ConfigProvider csp={{ nonce: "edu-admin" }} theme={theme}>
+        <ConfigProvider csp={{ nonce: "edu-admin-panel" }} theme={theme}>
+          {contextHolder}
           <ModalProvider>
             <Suspense fallback={<Loader />}>
               <Router />
-              {contextHolder}
             </Suspense>
           </ModalProvider>
         </ConfigProvider>
@@ -30,3 +30,4 @@ export const App = () => {
     </HistoryRouter>
   );
 };
+

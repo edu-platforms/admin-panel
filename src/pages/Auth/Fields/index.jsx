@@ -1,4 +1,6 @@
 import { Form, Input } from "antd";
+import { passwordRegex } from "@/utils";
+import { authDictionary } from "../dictionary";
 
 export const EmailField = ({ label, value, placeholder }) => {
   return (
@@ -27,7 +29,9 @@ export const PasswordField = ({ name, label, value, placeholder }) => {
       rules={[
         {
           required: true,
-        },
+          pattern: passwordRegex,
+          message: authDictionary.passwordMessage
+        }
       ]}
     >
       <Input.Password placeholder={placeholder} />

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function usePaginator() {
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(10);
 
   const handlePageChange = (page) => {
     setPage(page);

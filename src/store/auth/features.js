@@ -1,11 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { clearLocalStorage } from "@/utils";
+import { clearLocalStorage, getLocalStorage } from "@/utils";
 import { ENTITIES } from "../entities";
+
+const admin = getLocalStorage('admin') || null;
 
 const initialState = {
   loading: false,
   token: null,
   isAuth: null,
+  admin
 };
 
 const authSlice = createSlice({
@@ -28,9 +31,8 @@ const authSlice = createSlice({
       clearLocalStorage();
       state.isAuth = false;
       state.token = null;
-      state.loading = false;
     },
-  },
+  }
 });
 
 export const authSelector = (state) => state.auth;

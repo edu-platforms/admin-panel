@@ -6,7 +6,7 @@ const initialState = {
   loading: {
     get: false,
     post: false,
-    patch: false,
+    put: false,
     delete: false,
   },
   data: {

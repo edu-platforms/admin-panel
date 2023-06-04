@@ -1,40 +1,54 @@
-import { useContext } from 'react'
-import { Modal as AntModal, Form, Input, Button } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { acceptReject, userActions, usersSelector } from "@/store";
+import { Modal, Form, Input } from "antd";
 import { requestDictionary } from "../../dictionary";
-import { ModalContext } from "@/context";
-import { history } from "@/utils";
 
-export const RequestModal = ({ close }) => {
-    const { visible } = useContext(ModalContext);
-    const { TextArea } = Input;
+export const RequestModal = () => {
+    const dispatch = useDispatch()
+    const { loading, userFullName, selectedUserId, isModalOpen } = useSelector(usersSelector)
     const [form] = Form.useForm();
     const labels = requestDictionary.labels;
-    const handleFinishForm = (values) => {
-        console.log(values);
-        history.push("/");
+
+    const handleFinishForm = (value) => {
+        const params = { verify: 'reject', id: selectedUserId, ...value, }
+        dispatch(acceptReject(params))
     };
+
+    const handleOk = () => form.submit();
+
     const handleCancel = () => {
-        close();
+        dispatch(userActions.setFullName(""))
+        dispatch(userActions.setIsModalOpen(false))
+        dispatch(userActions.setSelectedUserId(null))
         form.resetFields();
     };
+
     return (
-        <AntModal title="Reject request" open={visible} footer={null} className="!w-[600px]" onCancel={handleCancel}>
-            <Form className="p-6" layout='vertical' onFinish={handleFinishForm} form={form}>
+        <Modal
+            title={requestDictionary.modalTitle}
+            width={900}
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            confirmLoading={loading.update}
+        >
+            <Form
+                form={form}
+                layout='vertical'
+                onFinish={handleFinishForm}
+            >
                 <Form.Item label={labels.fullName}>
-                    <Input readOnly value="Saidalikhon Sobirov" />
+                    <Input readOnly value={userFullName} />
                 </Form.Item>
+
                 <Form.Item
                     label={labels.reason}
-                    name="reason"
-                    rules={[{ required: true, message: requestDictionary.reasonMessage }]}
+                    name="rejectDescr"
+                    rules={[{ required: true, min: 10 }]}
                 >
-                    <TextArea placeholder={requestDictionary.reasonPlaceholder} autoSize={{ minRows: 5, maxRows: 10 }} />
-                </Form.Item>
-                <Form.Item>
-                    <Button htmlType='submit' size='large' type='primary' className='me-10'>{requestDictionary.rejectBtn}</Button>
-                    <Button size='large' onClick={handleCancel}>{requestDictionary.cancel}</Button>
+                    <Input.TextArea placeholder={requestDictionary.reasonPlaceholder} autoSize={{ minRows: 5, maxRows: 10 }} />
                 </Form.Item>
             </Form>
-        </AntModal>
+        </Modal>
     )
 }

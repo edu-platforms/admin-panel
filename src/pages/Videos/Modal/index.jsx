@@ -1,20 +1,16 @@
-import { useRef, useState } from "react";
-import { Modal, Button, Popconfirm, message, Space } from "antd";
+import { useRef } from "react";
+import { Modal, Button, Popconfirm, Space } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { videosSelector, videosActions } from "@/store";
 import { videosDictionary } from "../dictionary";
+import { addNotification } from "@/utils";
 
 export const VideoModal = ({ link }) => {
-  const [copySuccess, setCopySuccess] = useState('');
-  const [loading, setLoading] = useState(null);
-  const videoLinkRef = useRef(null);
-
   const dispatch = useDispatch();
-
+  const videoLinkRef = useRef(null);
   const { videoModal, selectedVideoId } = useSelector(videosSelector);
 
   const confirm = () => {
-    message.success("DELETE");
     dispatch(videosActions.setCloseVideoModal());
   };
 
@@ -25,9 +21,7 @@ export const VideoModal = ({ link }) => {
   const copy = () => {
     const linkToCopy = videoLinkRef.current.src;
     navigator.clipboard.writeText(linkToCopy);
-    setCopySuccess('Copied!');
-    setLoading(true);
-    setTimeout(() => setLoading(false), 1000);
+    addNotification('Copied!');
   };
 
   return (
@@ -50,7 +44,7 @@ export const VideoModal = ({ link }) => {
       ></iframe>
 
       <Space>
-        <Button onClick={copy} size="large" type="primary" loading={loading}>
+        <Button onClick={copy} size="large" type="primary">
           {videosDictionary.copyVideoURL}
         </Button>
         <Popconfirm
@@ -64,7 +58,6 @@ export const VideoModal = ({ link }) => {
           </Button>
         </Popconfirm>
       </Space>
-
     </Modal>
   );
 };

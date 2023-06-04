@@ -32,7 +32,7 @@ export const store = configureStore({
 export * from "./auth/actions";
 export * from "./auth/features";
 
-// Auth
+// Users
 export * from "./users/actions";
 export * from "./users/features";
 

@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { AuthForm } from "../Form";
 import { Form, Input } from "antd";
 import { PasswordField } from "../Fields";
-import { resetVerify } from "@/store";
+import { checkCode } from "@/store";
 import { getLocalStorage } from "@/utils";
 import { authDictionary } from "../dictionary";
 
@@ -13,7 +13,7 @@ export const Reset = () => {
   const handleFinish = (values) => {
     const params = { email, ...values };
 
-    dispatch(resetVerify(params));
+    dispatch(checkCode(params));
   };
 
   return (

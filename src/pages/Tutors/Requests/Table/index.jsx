@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { usePaginator } from "@/hooks";
 import { usersSelector, getTutorRequests } from "@/store";
 import { Table } from "antd";
+import { requestsColumn } from "../constants";
 import { getPaginationParams } from "@/utils";
-import { dataSource, requestsColumn } from "../constants";
 
 export const RequestsTable = () => {
   const dispatch = useDispatch();
@@ -30,9 +30,10 @@ export const RequestsTable = () => {
 
   return (
     <Table
+      bordered
+      rowKey="id"
       columns={requestsColumn}
       dataSource={tutorRequests}
-      rowKey="id"
       loading={loading.get}
       pagination={{
         total,
@@ -43,7 +44,6 @@ export const RequestsTable = () => {
         current: page,
         ...getPaginationParams(total),
       }}
-      bordered
     />
   );
 };

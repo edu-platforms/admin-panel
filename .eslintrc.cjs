@@ -9,8 +9,9 @@ module.exports = {
   parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
-  rules: {
+  // rules: {
     'react/prop-types': 'off',
     'react-refresh/only-export-components': 'warn',
-  },
+    'react-hooks/exhaustive-deps': 'off'
+  // },
 }

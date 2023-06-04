@@ -24,7 +24,7 @@ export class Instance {
   handleResponse = (response) => response;
 
   handleResponseError = (error) => {
-    if (error.response?.status === 401) {
+    if (error.response?.status === 401 || error.response?.status === 403) {
       clearLocalStorage();
     }
 

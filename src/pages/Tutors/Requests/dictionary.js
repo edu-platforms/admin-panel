@@ -1,5 +1,6 @@
 export const requestDictionary = {
   title: "New tutor requests",
+  modalTitle: "Reject request",
   name: "Name",
   surname: "Surname",
   viewProfile: "View profile",
@@ -27,9 +28,7 @@ export const requestDictionary = {
       fullName:"Tutor full name",
       reason:"Why you reject the tutor request"
   },
-  reasonMessage:'Please enter your reason!',
   reasonPlaceholder:"Enter a reason",
   rejectBtn: "Reject request",
   acceptBtn: "Accept request",
-  cancel: "Cancel"
 };

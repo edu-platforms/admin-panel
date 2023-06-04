@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { AuthForm } from "../Form";
 import { EmailField } from "../Fields";
-import { resetPassword } from "@/store";
+import { sendEmail } from "@/store";
 import { authDictionary } from "../dictionary";
 
 export const Forgot = () => {
   const dispatch = useDispatch();
 
   const handleFinish = (values) => {
-    dispatch(resetPassword(values));
+    dispatch(sendEmail(values));
   };
 
   return (
