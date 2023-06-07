@@ -50,6 +50,10 @@ export * from "./videos/features";
 export * from "./courses/actions";
 export * from "./courses/features";
 
+// Reports
+export * from "./reports/actions";
+export * from "./reports/features";
+
 // Students
 export * from "./students/features";
 

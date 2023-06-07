@@ -3,10 +3,10 @@ import { useBreadCrumbs } from "@/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { createCourseAllBreadcrumb } from "../constants";
 import { Title } from "@/components";
+import { CourseForm } from "../Form";
 import { courseActions, createCourse, coursesSelector } from "@/store";
 import { upload, loadings } from "@/utils";
 import { courseDictionary } from "../dictionary";
-import { CourseForm } from "../Form";
 
 export const CreateCourse = () => {
   const dispatch = useDispatch();
@@ -21,8 +21,8 @@ export const CreateCourse = () => {
 
     const params = {
       ...values,
-      course_image: imageName,
-      course_presentation: presentationName,
+      image: imageName,
+      presentation: presentationName,
     };
 
     dispatch(createCourse(params));
@@ -36,7 +36,7 @@ export const CreateCourse = () => {
 
       <CourseForm
         files={files}
-        loading={loading.create}
+        loading={loading.post}
         setFiles={setFiles}
         onFinish={handleCreate}
       />

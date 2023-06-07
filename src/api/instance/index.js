@@ -1,7 +1,8 @@
 import axios from "axios";
 import { stage } from "@/config";
+import { store } from "@/store";
 import { endpoints } from "../endpoints";
-import { getLocalStorage, clearLocalStorage } from "@/utils";
+import { authActions } from "@/store//auth/features";
 
 export class Instance {
   instance;
@@ -25,14 +26,14 @@ export class Instance {
 
   handleResponseError = (error) => {
     if (error.response?.status === 401 || error.response?.status === 403) {
-      clearLocalStorage();
+      store.dispatch(authActions.logout())
     }
 
     throw error;
   };
 
   handleRequest = async ({ headers, ...restConfig }) => {
-    const accessToken = getLocalStorage("access-token");
+    const accessToken = store.getState().auth.token
 
     return {
       headers: {

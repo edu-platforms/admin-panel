@@ -1,6 +1,6 @@
 import { Instance } from "../instance";
 import { endpoints } from "../endpoints";
-// import { dictionaryWithKeys } from "../../utils/intl";
+import { dictionaryWithKeys } from "../../utils/intl";
 
 const config = {
   baseURL: endpoints.courses,
@@ -13,13 +13,19 @@ class CoursesApi extends Instance {
 
   getCourses = (params) => this.get(endpoints.empty, { params });
 
-  getSingleCourse = (id) => this.get(`/${id}`);
+  getSingleCourse = (params) => this.get(dictionaryWithKeys(endpoints.param, {
+    param: params.id,
+  }));
 
   createCourse = (params) => this.post(endpoints.empty, params);
 
-  updateCourse = (params) => this.patch(`/${params.id}`, params);
+  updateCourse = (params) => this.put(dictionaryWithKeys(endpoints.param, {
+    param: params.id,
+  }), params);
 
-  deleteCourse = (id) => this.delete(`/${id}`);
+  deleteCourse = (params) => this.delete(dictionaryWithKeys(endpoints.param, {
+    param: params.id,
+  }));
 }
 
 export const coursesApi = new CoursesApi(config);

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getDashboard, getOne, getTutorRequests, getTutors } from "./actions";
 import { ENTITIES } from "../entities";
-import { loadings } from "@/utils";
+import { addNotification, loadings } from "@/utils";
 
 const initialState = {
   loading: {
@@ -31,6 +31,10 @@ const usersSlice = createSlice({
       state.search = payload;
     },
 
+    setLoading: ({ loading }, { payload }) => {
+      loading[payload] = !loading[loadings[payload]];
+    },
+
     setFullName: (state, { payload }) => {
       state.userFullName = payload;
     },
@@ -41,10 +45,6 @@ const usersSlice = createSlice({
 
     setSelectedUserId: (state, { payload }) => {
       state.selectedUserId = payload;
-    },
-
-    setLoading: ({ loading }, { payload }) => {
-      loading[payload] = !loading[loadings[payload]];
     },
 
     setTutorRequests: (state, { payload }) => {
@@ -77,13 +77,14 @@ const usersSlice = createSlice({
       state.data.tutors = payload.data;
       state.total = payload.totalCount
     });
-    builder.addCase(getTutors.rejected, (state) => {
+    builder.addCase(getTutors.rejected, (state, { payload }) => {
       state.loading.get = false;
       state.data.tutors = [];
+      addNotification(payload);
     });
 
-     // Get Tutors Requests
-     builder.addCase(getTutorRequests.pending, (state) => {
+    // Get Tutors Requests
+    builder.addCase(getTutorRequests.pending, (state) => {
       state.loading.get = true;
       state.data.tutorRequests = [];
     });
@@ -97,8 +98,8 @@ const usersSlice = createSlice({
       state.data.tutorRequests = [];
     });
 
-     // Get One
-     builder.addCase(getOne.pending, (state) => {
+    // Get One
+    builder.addCase(getOne.pending, (state) => {
       state.loading.get = true;
       state.data.details = {};
     });

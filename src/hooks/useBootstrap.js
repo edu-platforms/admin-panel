@@ -1,32 +1,32 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getLocalStorage } from "@/utils";
 import { authActions, authSelector } from "@/store";
+import { getLocalStorage } from "@/utils";
 
 export default function useBootstrap() {
   const dispatch = useDispatch();
   const { isAuth } = useSelector(authSelector);
   const [isInitiated, setIsInitiated] = useState(true);
 
-  const accessToken = getLocalStorage("access-token");
+  const admin = getLocalStorage('admin')
+  const accessToken = getLocalStorage('access-token')
 
   const setApp = () => {
-    if (accessToken) {
+    if (accessToken && admin) {
       dispatch(authActions.setAuth(true));
       dispatch(authActions.setToken(accessToken));
+    } else {
+      dispatch(authActions.logout())
     }
   };
 
- 
-
   useEffect(() => {
-    const getAppConfigs = async () => {
+    const getAppConfigs = () => {
       try {
-        await setApp();
-  
+        setApp();
         setIsInitiated(false);
-      } catch (error) {
-        console.error(error);
+      } catch (e) {
+        console.error(e);
       }
     };
 

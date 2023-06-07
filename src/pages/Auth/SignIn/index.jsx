@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import { AuthForm } from "../Form";
+import { authDictionary } from "../dictionary";
 import { EmailField, PasswordField } from "../Fields";
 import { signIn } from "@/store";
-import { authDictionary } from "../dictionary";
 
 export const SignIn = () => {
   const dispatch = useDispatch();
-  const login = { email: "mansurov.jr@mail.ru", password: "Nozim0302" };
+  const login = { email: "liil.dev@icloud.com", password: "Junior0302" };
 
   const handleFinish = (values) => {
     dispatch(signIn(values));

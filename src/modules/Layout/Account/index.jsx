@@ -25,14 +25,14 @@ export const Account = () => {
       <BellOutlined className={cn('account__icon')} />
       <LogoutOutlined className={cn("account__icon")} onClick={changeModal} />
 
-      <Avatar src={makeFileUrl(admin.photo)} icon={<UserOutlined />} />
+      <Avatar src={makeFileUrl(admin?.photo)} icon={<UserOutlined />} />
 
       <div className={cn("account__info")}>
         <Typography.Text strong>
-          {admin.firstName} {admin.lastName}
+          {admin?.firstName} {admin?.lastName}
         </Typography.Text>
 
-        <Typography.Text>{admin.email}</Typography.Text>
+        <Typography.Text>{admin?.email}</Typography.Text>
       </div>
 
       <Modal

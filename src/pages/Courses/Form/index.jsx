@@ -12,7 +12,7 @@ export const CourseForm = ({ form, files, loading, setFiles, onFinish }) => {
       <Row gutter={10}>
         <Col span={12}>
           <Input
-            name="course_name"
+            name="name"
             label={courseDictionary.labels.name}
             placeholder={courseDictionary.placeholders.courseName}
           />
@@ -21,7 +21,7 @@ export const CourseForm = ({ form, files, loading, setFiles, onFinish }) => {
         <Col span={12}>
           <Form.Item
             label={courseDictionary.labels.experience}
-            name="course_level"
+            name="level"
             rules={[
               {
                 required: true,
@@ -37,26 +37,26 @@ export const CourseForm = ({ form, files, loading, setFiles, onFinish }) => {
       </Row>
 
       <TextArea
-        name="course_descr"
+        name="descr"
         label={courseDictionary.labels.desc}
         placeholder={courseDictionary.placeholders.courseDesc}
       />
 
       <TextArea
-        name="course_overview"
+        name="overview"
         label={courseDictionary.labels.reason}
         placeholder={courseDictionary.placeholders.reason}
       />
 
       <TextArea
-        name="course_result"
+        name="result"
         label={courseDictionary.labels.capable}
         placeholder={courseDictionary.placeholders.capable}
       />
 
       <Row gutter={16} justify="space-between">
         <Col span={12}>
-          <Form.List name="course_plan" initialValue={[{}]}>
+          <Form.List name="plan" initialValue={[{}]}>
             {(fields, { add, remove }) => (
               <Form.Item label={courseDictionary.labels.syllabus}>
                 {fields.map(({ key, name, ...restField }) => (

@@ -9,9 +9,11 @@ export const endpoints = {
   checkCode: '/check-code',
   changePsw: '/change-password',
   dashboard: "/dashboard",
+
   tutors: "/tutor",
   tutorRequests: "/tutor-process",
   acceptReject: '/accept-reject/{param}',
-  courses: "/courses",
+  courses: "/course",
+  reports: "/report",
   file: "/file",
 };

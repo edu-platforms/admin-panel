@@ -6,7 +6,6 @@ import { Table } from "antd";
 import { tutorColumn } from "../constants";
 import { getPaginationParams } from "@/utils";
 
-
 export const TutorTable = () => {
   const dispatch = useDispatch()
   const { data: { tutors }, search, loading, total } = useSelector(usersSelector)
@@ -25,8 +24,8 @@ export const TutorTable = () => {
 
   return (
     <Table
-      bordered
       rowKey="id"
+      bordered
       columns={tutorColumn}
       dataSource={tutors}
       loading={loading.get}

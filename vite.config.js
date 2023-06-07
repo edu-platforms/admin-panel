@@ -19,16 +19,4 @@ export default defineConfig({
       },
     },
   },
-  // build: {
-  //   chunkSizeWarningLimit: 1500,
-  // },
-  // esbuild: {
-  //   jsxFactory: 'React.createElement',
-  //   jsxFragment: 'React.Fragment',
-  // },
-  // css: {
-  //   modules: {
-  //     localsConvention: 'camelCaseOnly',
-  //   },
-  // },
 })

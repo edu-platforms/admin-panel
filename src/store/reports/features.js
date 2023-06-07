@@ -1,23 +1,52 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ENTITIES } from "../entities";
+import { getReports } from "./actions";
+import { addNotification } from "@/utils";
 
 const initialState = {
-  name: 'Report',
-  filterTab: false,
-}
+  loading: false,
+  reports: [],
+  total: 0,
+  search: "",
+  isModalOpen: false,
+  reporter: null
+};
 
-const ReportSlice = createSlice({
-  name: ENTITIES.students,
+const reportsSlice = createSlice({
+  name: ENTITIES.reports,
   initialState,
   reducers: {
-    openReportFilterTab: (state) => {
-      state.filterTab = !state.filterTab
-    }
+    setQuery: (state, { payload }) => {
+      state.search = payload;
+    },
+
+    setReporter: (state, { payload }) => {
+      state.reporter = payload
+    },
+
+    setIsModalOpen: (state, { payload }) => {
+      state.isModalOpen = payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getReports.pending, (state) => {
+      state.loading = true;
+      state.reports = [];
+    });
+    builder.addCase(getReports.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.reports = payload.data
+      state.total = payload.totalCount
+    });
+    builder.addCase(getReports.rejected, (state, { payload }) => {
+      state.loading = false;
+      state.reports = [];
+      addNotification(payload);
+    });
   }
-})
+});
 
-export const reportSelector = (state) => state.reports;
-export const reportActions = ReportSlice.actions;
-export const { openReportFilterTab } = ReportSlice.actions;
+export const reportsSelector = (state) => state.reports;
+export const reportActions = reportsSlice.actions;
 
-export default ReportSlice.reducer;
+export default reportsSlice.reducer;

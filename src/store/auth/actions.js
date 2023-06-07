@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { authApi } from "@/api";
 import { authActions } from "./features";
-import { addNotification, setLocalStorage, removeLocalStorage } from "@/utils";
+import { addNotification, setLocalStorage, removeLocalStorage, makeAdminInfo } from "@/utils";
 import { history } from "@/utils";
 import { ROUTES } from "@/constants";
 
@@ -14,10 +14,13 @@ export const signIn = createAsyncThunk(
 
       if (res.data && res.data.role === "admin") {
         const { data } = res;
+        const admin = makeAdminInfo(data)
 
+        setLocalStorage("admin", admin);
         setLocalStorage("access-token", data.token);
-        setLocalStorage("admin", { firstName: data.firstname, lastName: data.lastname, email: data.email, photo: data.photo });
+        
         dispatch(authActions.setAuth(true));
+        dispatch(authActions.setToken(data.token));
       }
     } catch (e) {
       addNotification(e);
