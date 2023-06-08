@@ -12,7 +12,7 @@ import { Form } from "antd";
 import { Title } from "@/components";
 import { CourseForm } from "../Form";
 import { courseDictionary } from "../dictionary";
-import { upload, loadings, makeFileUrl } from "@/utils";
+import { upload, loadings } from "@/utils";
 import { courseDetailsBreadcrumb } from "../constants";
 
 export const CourseDetails = () => {
@@ -26,21 +26,21 @@ export const CourseDetails = () => {
   const [files, setFiles] = useState({ image: [], presentation: [] });
 
   const handleUpdate = async (values) => {
-    dispatch(courseActions.setLoading(loadings.patch));
+    dispatch(courseActions.setLoading(loadings.put));
 
     const { image, presentation } = files;
 
     if (image[0]?.originFileObj) {
-      values.course_image = await upload(image[0].originFileObj);
+      values.image = await upload(image[0].originFileObj);
     }
 
     if (presentation[0]?.originFileObj) {
-      values.course_presentation = await upload(presentation[0].originFileObj);
+      values.presentation = await upload(presentation[0].originFileObj);
     }
 
     const params = {
-      ...values,
       id,
+      ...values,
     };
 
     dispatch(updateCourse(params));
@@ -51,7 +51,7 @@ export const CourseDetails = () => {
       history.back();
     }
 
-    dispatch(getSingleCourse(id));
+    dispatch(getSingleCourse({ id }));
   };
 
   const setData = () => {
@@ -62,19 +62,19 @@ export const CourseDetails = () => {
 
       const image = [
         {
-          uid: course.course_id,
-          name: course.course_image,
+          uid: course.id,
+          name: course.image,
           status: "done",
-          url: makeFileUrl(course.course_image),
+          url: course.image,
         },
       ];
 
       const presentation = [
         {
-          uid: course.course_id,
-          name: course.course_presentation,
+          uid: course.id,
+          name: course.presentation,
           status: "done",
-          url: makeFileUrl(course.course_presentation),
+          url: course.presentation,
         },
       ];
 
@@ -98,7 +98,7 @@ export const CourseDetails = () => {
 
       <CourseForm
         form={form}
-        loading={loading.update}
+        loading={loading.put}
         files={files}
         setFiles={setFiles}
         onFinish={handleUpdate}

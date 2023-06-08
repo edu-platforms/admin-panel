@@ -2,6 +2,7 @@ export const requestDictionary = {
   title: "New tutor requests",
   modalTitle: "Reject request",
   name: "Name",
+  tutorDetails: "Tutor details",
   surname: "Surname",
   viewProfile: "View profile",
   searchTutor: "Search  tutor",
@@ -17,6 +18,8 @@ export const requestDictionary = {
   educations: "Education",
   experience: "Work experience",
   certificates: "Certificates",
+  viewCertificate: "View certificate",
+  verified: "Verified certificate",
   columns: {
     name: "Name",
     surname: "Surname",

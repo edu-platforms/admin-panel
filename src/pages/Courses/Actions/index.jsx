@@ -6,24 +6,25 @@ import { Space, Button, Tooltip } from "antd";
 import { EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ROUTES } from "@/constants";
 
-export const RequestActions = ({ record }) => {
+export const RequestActions = ({ id }) => {
   const dispatch = useDispatch();
   const { loading, deletedCourseId } = useSelector(coursesSelector);
-  const handleRemove = () => dispatch(deleteCourse(record.course_id));
+
+  const handleRemove = () => dispatch(deleteCourse({ id }));
 
   return (
     <Space>
       <Tooltip placement="bottom" title={courseDictionary.remove}>
         <Button
           danger
-          // disabled={loading.delete && deletedCourseId === record.course_id}
-          loading={loading.delete && deletedCourseId === record.course_id}
+          disabled={loading.delete && deletedCourseId === id}
+          loading={loading.delete && deletedCourseId === id}
           icon={<DeleteOutlined color="crimson" />}
           onClick={handleRemove}
         />
       </Tooltip>
 
-      <Link to={`${ROUTES.courses}/${record.course_id}`}>
+      <Link to={`${ROUTES.courses}/${id}`}>
         <Tooltip placement="bottom" title={courseDictionary.view}>
           <Button type="primary" icon={<EyeOutlined />} />
         </Tooltip>

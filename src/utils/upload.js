@@ -6,9 +6,11 @@ export const upload = async (file) => {
     const formData = new FormData();
     formData.append("file", file);
 
-    return await uploadApi.fileUpload(formData);
-  } catch (error) {
-    addNotification(error);
-    return Promise.reject(error);
+    const res = await uploadApi.fileUpload(formData);
+
+    if (res) return res.location
+  } catch (e) {
+    addNotification(e);
+    return Promise.reject(e);
   }
 };

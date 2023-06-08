@@ -12,12 +12,14 @@ export const authDictionary = {
   confirmPsw: "Confirm password",
   passwordPlaceholder: "********************",
   passwordMessage: "Password must contain uppercase and lowercase letters and digits",
-
+  message: 'Check your messages',
+  description: 'Code to recover your password have been sent to your email',
+  
   // Forget
   yourEmail: "Your email",
   forget: "Forget password?",
   resetPassword: "Reset password",
-  BackToLoginPage: "Back to login page",
+  backToLoginPage: "Back to login page",
   forgetPlaceholder: "force@adresseemail.com",
 
   // Reset

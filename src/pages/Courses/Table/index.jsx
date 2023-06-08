@@ -30,20 +30,20 @@ export const RequestsTable = () => {
 
   return (
     <Table
-      rowKey="course_id"
+      rowKey="id"
+      bordered
       columns={courseDetailsColumn}
       dataSource={courses}
       loading={loading.get}
       pagination={{
         onShowSizeChange: handleShowSizeChange,
         onChange: handlePageChange,
-        showSizeChanger: true,
         total,
-        pageSize: limit,
         current: page,
+        pageSize: limit,
+        showSizeChanger: true,
         ...getPaginationParams(total),
       }}
-      bordered
     />
   );
 };

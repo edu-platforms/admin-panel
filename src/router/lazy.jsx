@@ -7,13 +7,6 @@ const handleCatchChunkError = () => {
   return { default: Loader };
 };
 
-// DASHBOARD
-export const Dashboard = lazy(() =>
-  import("@/pages")
-    .then(({ Dashboard }) => ({ default: Dashboard }))
-    .catch(handleCatchChunkError)
-);
-
 // AUTH
 export const SignIn = lazy(() =>
   import("@/pages")
@@ -27,15 +20,22 @@ export const Reset = lazy(() =>
     .catch(handleCatchChunkError)
 );
 
-export const Forgot = lazy(() =>
+export const SendEmail = lazy(() =>
   import("@/pages")
-    .then(({ Forgot }) => ({ default: Forgot }))
+    .then(({ SendEmail }) => ({ default: SendEmail }))
     .catch(handleCatchChunkError)
 );
 
-export const Home = lazy(() =>
+export const CheckCode = lazy(() =>
   import("@/pages")
-    .then(({ Home }) => ({ default: Home }))
+    .then(({ CheckCode }) => ({ default: CheckCode }))
+    .catch(handleCatchChunkError)
+);
+
+// DASHBOARD
+export const Dashboard = lazy(() =>
+  import("@/pages")
+    .then(({ Dashboard }) => ({ default: Dashboard }))
     .catch(handleCatchChunkError)
 );
 

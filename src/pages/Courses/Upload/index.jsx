@@ -30,7 +30,7 @@ export const CourseUploads = ({ files, setFiles }) => {
     <>
       <Col span={5}>
         <Form.Item
-          name="course_image"
+          name="image"
           label={courseDictionary.labels.image}
           rules={[
             {
@@ -59,7 +59,7 @@ export const CourseUploads = ({ files, setFiles }) => {
 
       <Col span={4}>
         <Form.Item
-          name="course_presentation"
+          name="presentation"
           label={courseDictionary.labels.presentation}
           rules={[
             {

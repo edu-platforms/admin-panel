@@ -1,19 +1,18 @@
 import { AxiosError } from "axios";
 import { makeErrMsg } from "./general";
-import { notification } from "antd";
+import { toast } from "react-hot-toast";
 
 export const addNotification = (data) => {
+
   if (data instanceof AxiosError) {
-    notification.error({
-      message: makeErrMsg(data),
-      placement: "topRight",
+    toast.error(makeErrMsg(data), {
+      position: 'top-right'
     });
 
     return;
   }
 
-  notification.success({
-    message: data,
-    placement: "topRight",
+  toast.success(data, {
+    position: 'top-right'
   });
 };

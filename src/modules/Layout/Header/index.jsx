@@ -1,9 +1,9 @@
 import { Button, Col, Layout as AntdLayout, Row } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Breadcrumb } from "../../Breadcrumb";
-import classnamesBind from "classnames/bind";
-import styles from "./header.scss";
+import { Breadcrumb } from "@/modules/Breadcrumb";
 import { Account } from "../Account";
+import classnamesBind from "classnames/bind";
+import styles from "./header.module.scss";
 
 const cn = classnamesBind.bind(styles);
 

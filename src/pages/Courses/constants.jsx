@@ -6,25 +6,22 @@ import { ROUTES } from "@/constants";
 export const courseDetailsColumn = [
   {
     title: courseDictionary.columns.name,
-    dataIndex: "course_name",
-    key: "course_name",
+    dataIndex: "name",
   },
   {
     title: courseDictionary.columns.experience,
-    dataIndex: "course_level",
-    key: "course_level",
+    dataIndex: "level",
   },
   {
     title: courseDictionary.columns.createdAt,
-    dataIndex: "course_created_at",
-    key: "course_created_at",
+    dataIndex: "createdAt",
     render: (value) => dateFormatter(value),
   },
   {
     title: courseDictionary.columns.actions,
-    key: "actions",
     align: "center",
-    render: (_, record) => <RequestActions record={record} />,
+    dataIndex: "id",
+    render: (value) => <RequestActions id={value} />,
   },
 ];
 

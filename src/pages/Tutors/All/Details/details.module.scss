@@ -1,0 +1,44 @@
+.tutors {
+
+  &__certifications {
+    margin-top: 8px;
+    width: 100%;
+  }
+}
+
+// Feedback Component
+
+.f-wrapper {
+  border: 1px solid #E8E4E4;
+  padding: 15px 20px 20px 20px;
+  background: #F5F8FC;
+  border-radius: 10px;
+}
+
+.f-user {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.f-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.f-date {
+  font-size: 14px;
+  line-height: 17px;
+  color: #999;
+  margin-top: 15px;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+
+.f-feedback {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  margin-top: 10px;
+  color: #1c1c1c;
+}

@@ -20,13 +20,11 @@ export const getDashboard = createAsyncThunk(
 
 export const getTutors = createAsyncThunk(
   "get/tutors",
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     try {
-      const res = await usersApi.getTutors(params);
-
-      if (res.data) return res
+      return await usersApi.getTutors(params);
     } catch (e) {
-      addNotification(e);
+      return rejectWithValue(e)
     }
   }
 );
@@ -59,14 +57,15 @@ export const getOne = createAsyncThunk(
 
 export const acceptReject = createAsyncThunk(
   "user/accept-reject",
-  async (params) => {
-    dispatch(userActions.setLoading(loadings.put));
+  async (params, { dispatch }) => {
     try {
+      dispatch(userActions.setLoading(loadings.put));
+
       const res = await usersApi.acceptReject(params);
 
       if (res.data) {
         addNotification("Success")
-        history.back()
+        history.push(ROUTES.tutors)
       }
     } catch (e) {
       addNotification(e);

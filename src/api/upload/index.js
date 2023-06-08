@@ -10,7 +10,7 @@ class UploadApi extends Instance {
     super(config);
   }
 
-  fileUpload = (formData) => this.post("", formData);
+  fileUpload = (formData) => this.post(endpoints.empty, formData);
 
   filesUpload = (formData, onProgress) =>
     this.post(endpoints.file, formData, {

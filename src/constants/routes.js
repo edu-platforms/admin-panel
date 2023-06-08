@@ -1,11 +1,11 @@
 export const ROUTES = {
+  signIn: "/sign-in",
+  email: "/email",
+  check: "/check",
+  reset: "/reset",
+  
   home: "/",
   dashboard: "/dashboard",
-  signIn: "/sign-in",
-  signUp: "/sign-up",
-  forgot: "/forgot",
-  reset: "/reset",
-
   tutors: "/tutors",
   tutorDetails: "/tutors/:id",
 

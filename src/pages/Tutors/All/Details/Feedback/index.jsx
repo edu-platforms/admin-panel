@@ -1,8 +1,10 @@
-import { Avatar, Typography } from 'antd';
+import { Avatar, Card, Space, Typography } from 'antd';
+import classnameBind from "classnames/bind";
+import styles from "./feedback.module.scss";
+
+const cn = classnameBind.bind(styles);
 
 export const Feedback = ({ student }) => {
-  const { Text } = Typography;
-
   student = {
     name: 'John Doe',
     lesson: '3 English lessons',
@@ -12,16 +14,19 @@ export const Feedback = ({ student }) => {
   }
 
   return (
-    <div className='f-wrapper'>
-      <div className='f-user'>
-        <Avatar size={64} src={student.img} alt="Student's Photo" />
-        <div className='f-name'>
-          <Text strong={true}>{student.name}</Text>
-          <Text>{student.lesson}</Text>
+    <Card bordered className={cn('feedback')}>
+      <Space>
+        <Avatar src={student.img} size={64} alt="Student's Photo" />
+
+        <div>
+          <Typography.Title level={4}>{student.name}</Typography.Title>
+          <Typography.Text type="secondary">{student.lesson}</Typography.Text>
         </div>
-      </div>
-      <p className='f-feedback'>{student.feedback}</p>
-      <p className='f-date'> <time dateTime={student.when}>{student.when}</time> </p>
-    </div>
+      </Space>
+
+      <p className={cn('feedback__desc')}>{student.feedback}</p>
+
+      <Typography.Text type="secondary">{student.when}</Typography.Text>
+    </Card>
   )
 }

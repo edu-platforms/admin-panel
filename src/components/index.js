@@ -1,4 +1,3 @@
-export { File } from "./File";
 export { View } from './View'
 export { Title } from "./Title";
 export { Header } from "./Header";

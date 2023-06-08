@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import classnamesBind from "classnames/bind";
-import styles from "./content-center.scss";
+import styles from "./content-center.module.scss";
 
 const cn = classnamesBind.bind(styles);
 

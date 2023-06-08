@@ -3,12 +3,11 @@ import { tutorsDetailsBreadcrumb } from "../constants";
 import { Tabs } from "antd";
 import { allTutorDictionary } from "../dictionary";
 
-import "./style.scss";
+import "./details.module.scss";
 import { TutorRating } from "./Rating";
 import { TutorDetail } from "./Detail";
 
 export const TutorsAllDetails = () => {
-  useBreadCrumbs(tutorsDetailsBreadcrumb);
 
   const contents = [
     {
@@ -22,6 +21,8 @@ export const TutorsAllDetails = () => {
       children: <TutorDetail />,
     },
   ];
+  
+  useBreadCrumbs(tutorsDetailsBreadcrumb);
 
   return (
     <Tabs size="large" type="card" defaultActiveKey="1" items={contents} />

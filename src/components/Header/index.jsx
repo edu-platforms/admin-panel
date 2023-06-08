@@ -2,7 +2,7 @@ import { Col, Row } from 'antd'
 import { PrimaryBtn, Title } from '@/components';
 import { FilterOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { openVideosFilterTab, openStudentsFilterTab, openReportFilterTab } from '@/store'
+import { openVideosFilterTab, openStudentsFilterTab } from '@/store'
 
 export const Header = ({ title, route }) => {
   const dispatch = useDispatch()
@@ -14,8 +14,6 @@ export const Header = ({ title, route }) => {
         break;
       case 'Students':
         dispatch(openStudentsFilterTab())
-      case 'Reports':
-        dispatch(openReportFilterTab())
       default:
         break;
     }

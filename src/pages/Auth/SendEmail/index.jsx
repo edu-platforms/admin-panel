@@ -3,16 +3,15 @@ import { AuthForm } from "../Form";
 import { EmailField } from "../Fields";
 import { sendEmail } from "@/store";
 import { authDictionary } from "../dictionary";
+import { authLoadings } from "../constants";
 
-export const Forgot = () => {
+export const SendEmail = () => {
   const dispatch = useDispatch();
 
-  const handleFinish = (values) => {
-    dispatch(sendEmail(values));
-  };
+  const handleFinish = (value) => dispatch(sendEmail(value));
 
   return (
-    <AuthForm text={authDictionary.resetPassword} onFinish={handleFinish}>
+    <AuthForm loader={authLoadings.email} text={authDictionary.resetPassword} onFinish={handleFinish}>
       <EmailField
         value={"mansurov.jr@mail.ru"}
         label={authDictionary.yourEmail}

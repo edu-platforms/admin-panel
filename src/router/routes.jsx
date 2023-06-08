@@ -9,7 +9,8 @@ import {
   Dashboard,
   Reset,
   SignIn,
-  Forgot,
+  CheckCode,
+  SendEmail,
   AllTutors,
   AllStudents,
   TutorRequests,
@@ -210,10 +211,18 @@ export const Routes = ({ isAuth }) =>
           ),
         },
         {
-          path: ROUTES.forgot,
+          path: ROUTES.email,
           element: (
             <Suspense fallback={<Loader />}>
-              <Forgot />
+              <SendEmail />
+            </Suspense>
+          ),
+        },
+        {
+          path: ROUTES.check,
+          element: (
+            <Suspense fallback={<Loader />}>
+              <CheckCode />
             </Suspense>
           ),
         },

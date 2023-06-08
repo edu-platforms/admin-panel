@@ -1,42 +1,27 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { coursesApi } from "@/api";
 import { courseActions } from "./features";
-import { addNotification } from "@/utils";
-import { history, loadings } from "@/utils";
+import { history, loadings, addNotification } from "@/utils";
 import { ROUTES } from "@/constants";
 
 export const getCourses = createAsyncThunk(
   "get/courses",
-  async (params, { dispatch }) => {
+  async (params, { rejectWithValue }) => {
     try {
-      dispatch(courseActions.setLoading(loadings.get));
-      const res = await coursesApi.getCourses(params);
-
-      if (res.code) {
-        dispatch(courseActions.setCourses(res));
-      }
+      return await coursesApi.getCourses(params);
     } catch (e) {
-      addNotification(e);
-    } finally {
-      dispatch(courseActions.setLoading(loadings.get));
+      return rejectWithValue(e)
     }
   }
 );
 
 export const getSingleCourse = createAsyncThunk(
   "get/single-course",
-  async (id, { dispatch }) => {
+  async (params, { rejectWithValue }) => {
     try {
-      dispatch(courseActions.setLoading(loadings.get));
-      const res = await coursesApi.getSingleCourse(id);
-
-      if (res.code) {
-        dispatch(courseActions.setCourse(res.data));
-      }
+      return await coursesApi.getSingleCourse(params);
     } catch (e) {
-      addNotification(e);
-    } finally {
-      dispatch(courseActions.setLoading(loadings.get));
+      return rejectWithValue(e)
     }
   }
 );
@@ -47,7 +32,7 @@ export const createCourse = createAsyncThunk(
     try {
       const res = await coursesApi.createCourse(params);
 
-      if (res.code) {
+      if (res.data) {
         addNotification(res.message);
         history.push(ROUTES.courses);
       }
@@ -65,29 +50,30 @@ export const updateCourse = createAsyncThunk(
     try {
       const res = await coursesApi.updateCourse(params);
 
-      if (res.code) {
+      if (res.data) {
         addNotification(res.message);
         history.back();
       }
     } catch (e) {
       addNotification(e);
     } finally {
-      dispatch(courseActions.setLoading(loadings.patch));
+      dispatch(courseActions.setLoading(loadings.put));
     }
   }
 );
 
 export const deleteCourse = createAsyncThunk(
   "delete/course",
-  async (id, { dispatch }) => {
+  async (params, { dispatch }) => {
     try {
       dispatch(courseActions.setLoading(loadings.delete));
-      dispatch(courseActions.setDeletedCourseId(id));
-      const res = await coursesApi.deleteCourse(id);
+      dispatch(courseActions.setDeletedCourseId(params.id));
 
-      if (res.code) {
+      const res = await coursesApi.deleteCourse(params);
+
+      if (res.data) {
         addNotification(res.message);
-        dispatch(courseActions.removeCourse(res.data));
+        dispatch(courseActions.removeCourse(params));
       }
     } catch (e) {
       addNotification(e);

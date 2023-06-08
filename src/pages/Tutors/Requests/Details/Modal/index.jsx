@@ -5,12 +5,12 @@ import { requestDictionary } from "../../dictionary";
 
 export const RequestModal = () => {
     const dispatch = useDispatch()
-    const { loading, userFullName, selectedUserId, isModalOpen } = useSelector(usersSelector)
     const [form] = Form.useForm();
-    const labels = requestDictionary.labels;
+    const { loading, userFullName, selectedUserId, isModalOpen } = useSelector(usersSelector)
 
     const handleFinishForm = (value) => {
         const params = { verify: 'reject', id: selectedUserId, ...value, }
+
         dispatch(acceptReject(params))
     };
 
@@ -30,19 +30,19 @@ export const RequestModal = () => {
             open={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}
-            confirmLoading={loading.update}
+            confirmLoading={loading.put}
         >
             <Form
                 form={form}
                 layout='vertical'
                 onFinish={handleFinishForm}
             >
-                <Form.Item label={labels.fullName}>
+                <Form.Item label={requestDictionary.labels.fullName}>
                     <Input readOnly value={userFullName} />
                 </Form.Item>
 
                 <Form.Item
-                    label={labels.reason}
+                    label={requestDictionary.labels.reason}
                     name="rejectDescr"
                     rules={[{ required: true, min: 10 }]}
                 >

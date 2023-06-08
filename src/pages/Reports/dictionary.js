@@ -1,5 +1,6 @@
 export const allReportsDictionary = {
   title: "All Reports",
+  modalTitle: "Report",
   solved: "Solved",
   active: "Active",
   view: "View",
@@ -17,9 +18,9 @@ export const allReportsDictionary = {
   },
   solve:"Solve report",
   viewRecord:"View recorded lesson",
-  reasonMessage:'Please enter your reason!',
   search:"Search  report title"
 };
+
 export const filterDictionary={
   filter: 'Filter',
   filterByStudent: 'Filter by reporter name...',

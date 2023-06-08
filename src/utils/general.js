@@ -36,3 +36,16 @@ export const makeFileUrl = (partUrl) => {
 
   return new URL(pathname, stage.cdnHost).href;
 };
+
+
+export const makeFullName = (user) => {
+  if (user) {
+    return `${user?.firstname} ${user?.lastname}`;
+  }
+
+  return "Unknown";
+};
+
+export const makeAdminInfo = (data) => {
+  return { firstName: data.firstname, lastName: data.lastname, email: data.email, photo: data.photo }
+}

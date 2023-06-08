@@ -1,7 +1,7 @@
 import { Title } from "@/components";
 import { Form, Row, Col, Typography } from "antd";
 import { Feedback } from "../Feedback";
-import { ReadOnlyField } from "../ReadOnlyField";
+import { ReadOnlyField } from "../Fields";
 import { allTutorDictionary } from "../../dictionary";
 import { a, data } from "../constants";
 

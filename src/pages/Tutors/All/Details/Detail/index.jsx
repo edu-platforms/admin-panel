@@ -1,139 +1,191 @@
-import { Form, Row, Col, Divider, Image } from "antd";
-import { ReadOnlyField } from "../ReadOnlyField";
-import { ReadOnlyTextArea } from "../ReadOnlyTextArea";
-import { allTutorDictionary } from "../../dictionary";
-import { data } from "../constants";
-import { File } from "@/components";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getOne, usersSelector } from "@/store";
+import { Title } from "@/components";
+import { Form, Row, Col, Image, Card, Space, Typography, Button } from "antd";
+import { ReadOnlyField, ReadOnlyTextArea } from "../Fields";
+import { requestDictionary } from "@/pages/Tutors/Requests/dictionary";
+import classnameBind from "classnames/bind";
+import styles from "../details.module.scss";
+import { dateFormatter } from "@/utils";
+
+const cn = classnameBind.bind(styles);
 
 export const TutorDetail = () => {
-  return (
-    <div className="tutor-details-wrapper">
-      <h2 className="tutor-details-title">{allTutorDictionary.tutorDetails}</h2>
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const [form] = Form.useForm();
+  const [certifications, setCertifications] = useState([])
+  const { data: { details } } = useSelector(usersSelector);
 
-      <Form layout="vertical" autoComplete="off">
-        <Row gutter={12}>
+  const getData = () => {
+    if (!id) {
+      history.back();
+    }
+
+    dispatch(getOne({ id }));
+  };
+
+  const setData = () => {
+    if (details) {
+      for (let key in details) {
+
+        if (key === "birthday") {
+          form.setFieldsValue({ [key]: dateFormatter(details[key]) });
+        } else {
+          form.setFieldsValue({ [key]: details[key] });
+        }
+      }
+
+      setCertifications(details.certifications)
+    }
+  }
+
+  console.log(details);
+  useEffect(() => {
+    getData();
+  }, [id]);
+
+  useEffect(() => {
+    setData();
+  }, [details]);
+
+  return (
+    <>
+      <Title>{requestDictionary.tutorDetails}</Title>
+
+      <Form
+        form={form}
+        layout="vertical"
+        autoComplete="off"
+      >
+        <Row gutter={16}>
           <Col span={24}>
-            <Form.Item label={allTutorDictionary.profilePhoto}>
+            <Form.Item name="photo" label={requestDictionary.profilePhoto}>
               <Image
                 width={240}
                 height={160}
-                src={data.photo}
-                style={{ borderRadius: 20, objectFit: "cover" }}
               />
             </Form.Item>
           </Col>
 
           <Col span={12}>
             <ReadOnlyField
-              label={allTutorDictionary.displayName}
-              value={data.displayName}
+              name="displayname"
+              label={requestDictionary.displayName}
             />
           </Col>
 
           <Col span={12}>
             <ReadOnlyField
-              label={allTutorDictionary.emailAddress}
-              value={data.emailAddress}
+              name="email"
+              label={requestDictionary.emailAddress}
             />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyField label={allTutorDictionary.name} value={data.name} />
+            <ReadOnlyField name="firstname" label={requestDictionary.name} />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyField
-              label={allTutorDictionary.surname}
-              value={data.surname}
-            />
+            <ReadOnlyField name="lastname" label={requestDictionary.surname} />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyField label={allTutorDictionary.from} value={data.from} />
+            <ReadOnlyField name="address" label={requestDictionary.from} />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyField
-              label={allTutorDictionary.livingIn}
-              value={data.livingIn}
-            />
+            <ReadOnlyField name="currentAddress" label={requestDictionary.livingIn} />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyField label={allTutorDictionary.date} value={data.date} />
+            <ReadOnlyField name="birthday" label={requestDictionary.date} />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyField
-              label={allTutorDictionary.gender}
-              value={data.gender}
-            />
+            <ReadOnlyField name="gender" label={requestDictionary.gender} />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyTextArea
-              label={allTutorDictionary.about}
-              value={data.about}
-            />
+            <ReadOnlyTextArea name="about" label={requestDictionary.about} />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyTextArea label={allTutorDictionary.me} value={data.me} />
+            <ReadOnlyTextArea name="aboutTeacher" label={requestDictionary.me} />
           </Col>
 
           <Col span={12}>
-            <label style={{ margin: "0 10px" }}>
-              {allTutorDictionary.educations}
-            </label>
-            {data.educations.map((item, id) => (
-              <Col style={{ marginTop: "10px" }} key={id}>
-                <ReadOnlyField value={item.name} />
-                <Row gutter={12} span={12}>
-                  <Col span={12}>
-                    <ReadOnlyField
-                      value={item.degree}
-                      style={{ width: "48%" }}
-                    />
-                  </Col>
-                  <Col span={12}>
-                    <ReadOnlyField value={item.date} style={{ width: "48%" }} />
-                  </Col>
-                </Row>
-                <Divider style={{ marginTop: "0" }} />
-              </Col>
-            ))}
+            <Form.List name="educations" initialValue={[{}]}>
+              {(fields) => (
+                <Form.Item label={requestDictionary.educations}>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Col key={key}>
+                      <ReadOnlyField {...restField} name={[name, "title"]} />
+
+                      <Row span={12} gutter={10}>
+                        <Col span={12}>
+                          <ReadOnlyField {...restField} name={[name, "degree"]} />
+                        </Col>
+                        <Col span={12}>
+                          <ReadOnlyField {...restField} name={[name, "dateFrom", "dateTo"]} />
+                        </Col>
+                      </Row>
+                    </Col>
+                  ))}
+                </Form.Item>
+              )}
+            </Form.List>
           </Col>
 
           <Col span={12}>
-            <label style={{ margin: "0 10px" }}>
-              {allTutorDictionary.experience}
-            </label>
-            {data.experience.map((item, id) => (
-              <Col key={id} style={{ marginTop: "10px" }}>
-                <ReadOnlyField value={item.name} />
-                <Row gutter={12} span={12}>
-                  <Col span={12}>
-                    <ReadOnlyField value={item.position} />
-                  </Col>
-                  <Col span={12}>
-                    <ReadOnlyField value={item.date} />
-                  </Col>
-                </Row>
-                <Divider style={{ marginTop: "0" }} />
-              </Col>
-            ))}
+            <Form.List name="experiences" initialValue={[{}]}>
+              {(fields) => (
+                <Form.Item label={requestDictionary.experience}>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Col key={key}>
+                      <ReadOnlyField {...restField} name={[name, "title"]} />
+
+                      <Row span={12} gutter={10}>
+                        <Col span={12}>
+                          <ReadOnlyField {...restField} name={[name, "descr"]} />
+                        </Col>
+
+                        <Col span={12}>
+                          <ReadOnlyField {...restField} name={[name, "date"]} />
+                        </Col>
+                      </Row>
+                    </Col>
+                  ))}
+                </Form.Item>
+              )}
+            </Form.List>
           </Col>
 
           <Col span={24}>
-            <label style={{ margin: "0 10px" }}>
-              {allTutorDictionary.certificates}
-            </label>
-            {data.certificates.map((item, id) => (
-              <File onlyViewCertificate item={item} key={id} />
-            ))}
+            <Typography>{requestDictionary.certificates}</Typography>
+
+            <Space direction="vertical" className={cn("tutors__certifications")}>
+              {
+                certifications?.map((certification, i) =>
+                  <Card key={i} bordered>
+                    <Row align='middle' justify="space-between">
+                      <Typography level={5}>{certification.name}</Typography>
+
+                      <Button type="primary" size="large">
+                        <a href={certification.file} target="_blank" rel="noopener noreferrer">
+                          {requestDictionary.viewCertificate}
+                        </a>
+                      </Button>
+                    </Row>
+                  </Card>
+                )
+              }
+            </Space>
           </Col>
         </Row>
       </Form>
-    </div>
+    </>
   );
 };

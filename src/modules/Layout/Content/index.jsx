@@ -1,6 +1,6 @@
 import { Layout as AntdLayout } from "antd";
 import classnamesBind from "classnames/bind";
-import styles from "./content.scss";
+import styles from "./content.module.scss";
 
 const cn = classnamesBind.bind(styles);
 
