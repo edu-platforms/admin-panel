@@ -10,7 +10,7 @@ import styles from "../auth.module.scss";
 
 const cn = classnameBind.bind(styles);
 
-export const AuthForm = ({ text, login, onFinish, children }) => {
+export const AuthForm = ({ text, loader, login, onFinish, children }) => {
   const { loading } = useSelector(authSelector);
 
   return (
@@ -24,7 +24,7 @@ export const AuthForm = ({ text, login, onFinish, children }) => {
 
       <PrimaryBtn
         type="primary"
-        loading={loading}
+        loading={loading[loader]}
         block
         htmlType="submit"
         className={cn("auth__form-btn")}
@@ -36,14 +36,14 @@ export const AuthForm = ({ text, login, onFinish, children }) => {
         {login ? (
           <Typography.Text>
             {authDictionary.forget}&nbsp;
-            <Link to={ROUTES.forgot} component={Typography.Link}>
+            <Link to={ROUTES.email} component={Typography.Link}>
               {authDictionary.recovery}
             </Link>
           </Typography.Text>
         ) : (
           <Typography.Text>
             <Link to={ROUTES.signIn} component={Typography.Link}>
-              {authDictionary.BackToLoginPage}
+              {authDictionary.backToLoginPage}
             </Link>
           </Typography.Text>
         )}

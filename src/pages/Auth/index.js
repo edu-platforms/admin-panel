@@ -1,4 +1,4 @@
 export { Reset } from "./Reset";
 export { SignIn } from './SignIn'
-export { Forgot } from "./Forgot";
-
+export { SendEmail } from "./SendEmail";
+export { CheckCode } from './CheckCode'

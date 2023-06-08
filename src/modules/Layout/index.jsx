@@ -7,13 +7,13 @@ import { Outlet } from "react-router-dom";
 import { logo } from "@/assets";
 import { constantsDictionary } from "@/constants";
 import classnamesBind from "classnames/bind";
-import styles from "./layout.scss";
+import styles from "./layout.module.scss";
 
 const cn = classnamesBind.bind(styles);
 
 export const Layout = () => {
   const [value, setValue] = useState(false);
-  const siderWidth = value ? 80 : 250;
+  const sideWidth = value ? 80 : 250;
 
   const toggle = () => setValue(!value);
 
@@ -23,7 +23,7 @@ export const Layout = () => {
         trigger={null}
         collapsible
         collapsed={value}
-        width={siderWidth}
+        width={sideWidth}
         style={{
           overflow: "auto",
           height: "100vh",
@@ -43,7 +43,7 @@ export const Layout = () => {
         </div>
       </AntdLayout.Sider>
 
-      <AntdLayout style={{ marginLeft: siderWidth }}>
+      <AntdLayout style={{ marginLeft: sideWidth }}>
         <Header collapsed={value} onCollapsedClick={toggle} />
 
         <Content>

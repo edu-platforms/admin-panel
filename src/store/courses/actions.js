@@ -6,26 +6,22 @@ import { ROUTES } from "@/constants";
 
 export const getCourses = createAsyncThunk(
   "get/courses",
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     try {
-      const res = await coursesApi.getCourses(params);
-
-      if (res.data) return res
+      return await coursesApi.getCourses(params);
     } catch (e) {
-      addNotification(e);
+      return rejectWithValue(e)
     }
   }
 );
 
 export const getSingleCourse = createAsyncThunk(
   "get/single-course",
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     try {
-      const res = await coursesApi.getSingleCourse(params);
-
-      if (res.data) return res.data
+      return await coursesApi.getSingleCourse(params);
     } catch (e) {
-      addNotification(e);
+      return rejectWithValue(e)
     }
   }
 );

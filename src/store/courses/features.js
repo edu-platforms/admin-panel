@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ENTITIES } from "../entities";
-import { loadings } from "@/utils";
+import { addNotification, loadings } from "@/utils";
 import { getCourses, getSingleCourse } from "./actions";
 
 const initialState = {
@@ -61,23 +61,25 @@ const coursesSlice = createSlice({
       state.data.courses = payload.data;
       state.total = payload.totalCount
     });
-    builder.addCase(getCourses.rejected, (state) => {
+    builder.addCase(getCourses.rejected, (state, { payload }) => {
       state.loading.get = false;
       state.data.courses = [];
+      addNotification(payload);
     });
 
     // Get Details
     builder.addCase(getSingleCourse.pending, (state) => {
       state.loading.get = true;
-      state.data.course = [];
+      state.data.course = {};
     });
     builder.addCase(getSingleCourse.fulfilled, (state, { payload }) => {
       state.loading.get = false;
-      state.data.course = payload;
+      state.data.course = payload.data;
     });
-    builder.addCase(getSingleCourse.rejected, (state) => {
+    builder.addCase(getSingleCourse.rejected, (state, { payload }) => {
       state.loading.get = false;
-      state.data.course = [];
+      state.data.course = {};
+      addNotification(payload);
     });
   }
 });

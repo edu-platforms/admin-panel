@@ -1,12 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { clearLocalStorage } from "@/utils";
 import { ENTITIES } from "../entities";
+import { authLoadings } from "@/pages/Auth/constants";
 
 const initialState = {
   admin: null,
   token: null,
   isAuth: null,
-  loading: false,
+  loading: {
+    sign: false,
+    email: false,
+    check: false,
+    reset: false,
+  },
+  isEmailSend: false
 };
 
 const authSlice = createSlice({
@@ -21,8 +28,12 @@ const authSlice = createSlice({
       state.isAuth = payload;
     },
 
-    setLoading: (state, { payload }) => {
-      state.loading = payload;
+    setLoading: ({ loading }, { payload }) => {
+      loading[payload] = !loading[authLoadings[payload]];
+    },
+
+    setIsEmailSend: (state, { payload }) => {
+      state.isEmailSend = payload;
     },
 
     logout: (state) => {
