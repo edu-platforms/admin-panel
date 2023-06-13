@@ -39,7 +39,4 @@ export const reportColumn = [
   },
 ];
 
-export const allReportsBreadcrumb = [
-  { label: "Reports" },
-  { label: "All reports" },
-];
+export const allReportsBreadcrumb = [{ label: "Reports" }];

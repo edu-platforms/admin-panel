@@ -1,5 +1,6 @@
 export const allTutorDictionary = {
   title: "All Tutors",
+  displayName: "Display name",
   view: "View profile",
   tutorRating: "Tutor rating",
   tutorDetails: "Tutor details",

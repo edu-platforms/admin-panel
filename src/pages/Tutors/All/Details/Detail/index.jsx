@@ -27,6 +27,7 @@ export const TutorDetail = () => {
     dispatch(getOne({ id }));
   };
 
+  console.log({details});
   const setData = () => {
     if (details) {
       for (let key in details) {

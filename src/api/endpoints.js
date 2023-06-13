@@ -13,6 +13,7 @@ export const endpoints = {
   tutors: "/tutor",
   tutorRequests: "/tutor-process",
   acceptReject: '/accept-reject/{param}',
+  students: "/student",
   courses: "/course",
   reports: "/report",
   file: "/file",

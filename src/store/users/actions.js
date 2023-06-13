@@ -42,6 +42,17 @@ export const getTutorRequests = createAsyncThunk(
   }
 );
 
+export const getStudents = createAsyncThunk(
+  "get/students",
+  async (params, { rejectWithValue }) => {
+    try {
+      return await usersApi.getStudents(params);
+    } catch (e) {
+      return rejectWithValue(e)
+    }
+  }
+);
+
 export const getOne = createAsyncThunk(
   "get/one",
   async (params) => {

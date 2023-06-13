@@ -12,9 +12,7 @@ export default function useDebounce(action) {
       dispatch(action(search));
     }, 1000);
 
-    return () => {
-      clearTimeout(debounce);
-    };
+    return () => clearTimeout(debounce);
   }, [action, search, dispatch]);
 
   return { onSearch };

@@ -1,13 +1,11 @@
 import { studentsDictionary } from "./dictionary";
-import { AllStudentActions } from "./All/Actions";
+import { AllStudentActions } from "./Actions";
 import { Tag } from "antd";
 import { ROUTES } from '@/constants';
+import { makeFullName } from "@/utils";
 
 
-export const studentAllBreadcrumb = [
-  { label: "Students" },
-  { label: "All Students" },
-];
+export const studentAllBreadcrumb = [{ label: "Students" }];
 
 export const dataSource = [
   {
@@ -35,19 +33,17 @@ export const dataSource = [
 
 export const studentColumn = [
   {
-    key: "studentName",
     title: studentsDictionary.columns.studentName,
     align: "center",
-    dataIndex: "studentName",
+    dataIndex: "studentFullName",
+    render: (_, record) => <span>{makeFullName(record)}</span>
   },
   {
-    key: "plan",
     title: studentsDictionary.columns.plan,
     align: "center",
     dataIndex: "plan",
   },
   {
-    key: "email",
     title: studentsDictionary.columns.email,
     align: "center",
     dataIndex: "email",
