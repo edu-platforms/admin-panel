@@ -1,10 +1,7 @@
 import { RequestActions } from "./Actions";
 import { videosDictionary } from "./dictionary";
 
-export const videoAllBreadcrumb = [
-  { label: "Videos" },
-  { label: "All videos" },
-];
+export const videoAllBreadcrumb = [{ label: "Videos" }];
 
 export const dataSource = [
   {

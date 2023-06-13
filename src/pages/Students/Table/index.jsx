@@ -1,49 +1,49 @@
+import { usePaginator } from "@/hooks";
+import { Table } from "antd";
+import { getPaginationParams } from "@/utils";
+import { studentColumn } from "../constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { usePaginator } from "@/hooks";
-import { getReports, reportsSelector } from "@/store";
-import { Table } from "antd";
-import { reportColumn } from "../constants";
-import { getPaginationParams } from "@/utils";
+import { getStudents, usersSelector } from "@/store";
 
-export const TutorTable = () => {
-  const dispatch = useDispatch();
+export const StudentTable = () => {
+  const dispatch = useDispatch()
   const {
+    data: { students },
     total,
     search,
-    reports,
     loading,
-  } = useSelector(reportsSelector);
+  } = useSelector(usersSelector);
   const { page, limit, handlePageChange, handleShowSizeChange } =
     usePaginator();
 
+  console.log(students);
   const getData = async () => {
     const params = { search, page, limit };
 
-    dispatch(getReports(params));
+    dispatch(getStudents(params));
   };
 
   useEffect(() => {
     getData();
   }, [search, page, limit]);
 
-  console.log(reports);
   return (
     <Table
       rowKey="id"
-      bordered
-      columns={reportColumn}
-      dataSource={reports}
-      loading={loading}
+      loading={loading.get}
+      columns={studentColumn}
+      dataSource={students}
       pagination={{
-        onChange: handlePageChange,
-        onShowSizeChange: handleShowSizeChange,
         total,
         current: page,
         pageSize: limit,
         showSizeChanger: true,
+        onChange: handlePageChange,
+        onShowSizeChange: handleShowSizeChange,
         ...getPaginationParams(total),
       }}
+      bordered
     />
   );
 };

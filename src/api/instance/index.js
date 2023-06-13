@@ -8,7 +8,7 @@ export class Instance {
   instance;
   baseURL = "";
 
-  constructor({ baseURL = endpoints.base, headers, timeout = 65000 }) {
+  constructor({ baseURL = endpoints.base, headers, timeout = 100000 }) {
     this.instance = axios.create({
       baseURL,
       timeout,

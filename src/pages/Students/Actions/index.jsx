@@ -4,7 +4,7 @@ import { Button, Popover, Typography } from "antd";
 import { DashOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { payment } from '@/assets'
-import { studentsDictionary } from "../../dictionary";
+import { studentsDictionary } from "../dictionary";
 // import { videosActions } from "@/store";
 
 export const AllStudentActions = ({ record }) => {

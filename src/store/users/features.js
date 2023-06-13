@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDashboard, getOne, getTutorRequests, getTutors } from "./actions";
+import { getOne, getDashboard, getStudents, getTutorRequests, getTutors } from "./actions";
 import { ENTITIES } from "../entities";
 import { addNotification, loadings } from "@/utils";
 
@@ -11,6 +11,7 @@ const initialState = {
     delete: false,
   },
   data: {
+    students: [],
     tutors: [],
     tutorRequests: [],
     details: {},
@@ -18,9 +19,13 @@ const initialState = {
   },
   total: 0,
   search: "",
+  filter: null,
   userFullName: "",
   isModalOpen: false,
   selectedUserId: null,
+  // email: "",
+  // paymentStats: "",
+  // lessonDurationWeek: "",
 };
 
 const usersSlice = createSlice({
@@ -29,6 +34,16 @@ const usersSlice = createSlice({
   reducers: {
     setQuery: (state, { payload }) => {
       state.search = payload;
+    },
+
+    setFilter: (state, { payload }) => {
+      state.filter = payload
+    },
+
+    clearFilter: (state) => {
+      state.email = "";
+      state.paymentStats = "";
+      state.lessonDurationWeek = "";
     },
 
     setLoading: ({ loading }, { payload }) => {
@@ -96,6 +111,22 @@ const usersSlice = createSlice({
     builder.addCase(getTutorRequests.rejected, (state) => {
       state.loading.get = false;
       state.data.tutorRequests = [];
+    });
+
+    // Get Students
+    builder.addCase(getStudents.pending, (state) => {
+      state.loading.get = true;
+      state.data.students = [];
+    });
+    builder.addCase(getStudents.fulfilled, (state, { payload }) => {
+      state.loading.get = false;
+      state.data.students = payload.data;
+      state.total = payload.totalCount
+    });
+    builder.addCase(getStudents.rejected, (state, { payload }) => {
+      state.loading.get = false;
+      state.data.students = [];
+      addNotification(payload);
     });
 
     // Get One

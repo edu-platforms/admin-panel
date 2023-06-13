@@ -1,12 +1,8 @@
 import { useSelector } from "react-redux";
 import { breadcrumbSelector } from "@/store";
-import { Breadcrumb as BreadcrumbAntd } from "antd";
+import { Breadcrumb as AntdBreadcrumb } from "antd";
 import { generateBreadcrumbItems } from "../utils";
 import { RightOutlined } from "@ant-design/icons";
-import classnamesBind from "classnames/bind";
-import styles from "./breadcrumb.module.scss";
-
-const cn = classnamesBind.bind(styles);
 
 export const Breadcrumb = () => {
   const { breadcrumbs } = useSelector(breadcrumbSelector);
@@ -14,9 +10,8 @@ export const Breadcrumb = () => {
   const items = generateBreadcrumbItems(breadcrumbs);
 
   return (
-    <BreadcrumbAntd
+    <AntdBreadcrumb
       key="title"
-      className={cn("breadcrumb")}
       separator={<RightOutlined />}
       items={items}
     />
