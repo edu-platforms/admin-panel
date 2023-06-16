@@ -1,47 +1,90 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { usePaginator } from "@/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { getRatings, getTutorDetails, ratingsSelector, usersSelector } from "@/store";
 import { Title } from "@/components";
-import { Form, Row, Col, Typography } from "antd";
+import { Form, Row, Col, Typography, Pagination } from "antd";
 import { Feedback } from "../Feedback";
 import { ReadOnlyField } from "../Fields";
 import { allTutorDictionary } from "../../dictionary";
-import { a, data } from "../constants";
+import { getPaginationParams } from "@/utils";
 
 export const TutorRating = () => {
+  const dispatch = useDispatch()
+  const [form] = Form.useForm();
+  const { id } = useParams();
+  const { ratings, total } = useSelector(ratingsSelector);
+  const { data: { details } } = useSelector(usersSelector);
+  const { page, limit, handlePageChange, handleShowSizeChange } =
+    usePaginator();
+
+    console.log(details);
+  const getData = () => {
+    if (!id) {
+      history.back();
+    }
+
+    dispatch(getTutorDetails({ id }));
+    dispatch(getRatings({ id, page, limit }));
+  };
+
+  const setData = () => {
+    if (details) {
+      for (let key in details) {
+        form.setFieldsValue({ [key]: details[key] });
+      }
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, [id]);
+
+  useEffect(() => {
+    setData();
+  }, [details]);
+
   return (
     <>
       <Title>{allTutorDictionary.tutorRating}</Title>
 
-      <Form layout="vertical" autoComplete="off">
+      <Form form={form} layout="vertical" autoComplete="off">
         <Row gutter={12}>
           <Col span={12}>
             <ReadOnlyField
-              label={allTutorDictionary.displayName}
-              value={data.displayName}
-            />
+              name="displayName"
+              label={allTutorDictionary.displayName} 
+              />
           </Col>
 
           <Col span={12}>
-            <ReadOnlyField label={allTutorDictionary.join} value={data.join} />
-          </Col>
-
-          <Col span={8}>
             <ReadOnlyField
-              label={allTutorDictionary.currentRating}
-              value={data.currentRating}
+              name="createdAt"
+             label={allTutorDictionary.join}  
             />
           </Col>
 
           <Col span={8}>
             <ReadOnlyField
-              label={allTutorDictionary.totalStudents}
-              value={data.totalStudents}
-            />
+              name={['rating', 'ball']}
+              fieldKey
+              label={allTutorDictionary.currentRating} 
+              />
           </Col>
 
           <Col span={8}>
             <ReadOnlyField
-              label={allTutorDictionary.talkTime}
-              value={data.talkTime}
-            />
+              name={['event', 'studentCount']}
+              label={allTutorDictionary.totalStudents} 
+              />
+          </Col>
+
+          <Col span={8}>
+            <ReadOnlyField
+              name=""
+              label={allTutorDictionary.talkTime} 
+              />
           </Col>
         </Row>
       </Form>
@@ -50,13 +93,27 @@ export const TutorRating = () => {
         {allTutorDictionary.feedback}
       </Typography.Title>
 
-      <Row gutter={[12, 12]}>
-        {a.map((i) => (
-          <Col key={i} span={12}>
-            <Feedback />
-          </Col>
-        ))}
-      </Row>
+      {
+        ratings.length > 0 ?
+          <Row gutter={[12, 12]}>
+            {ratings.map((i) => (
+              <Col key={i} span={12}>
+                <Feedback />
+              </Col>
+            ))}
+
+            <Pagination 
+              onChange={handlePageChange}
+              onShowSizeChange={handleShowSizeChange}
+              showSizeChanger
+              total={total} 
+              pageSize={limit}
+              defaultCurrent={page} 
+              {...getPaginationParams(total)}
+            />
+        </Row>
+        : null
+      }
     </>
   );
 };

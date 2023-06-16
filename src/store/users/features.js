@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getOne, getDashboard, getStudents, getTutorRequests, getTutors } from "./actions";
+import {
+  getOne,
+  getDashboard,
+  getStudents,
+  getTutorRequests,
+  getTutors,
+  getTutorDetails,
+} from "./actions";
 import { ENTITIES } from "../entities";
 import { addNotification, loadings } from "@/utils";
 
@@ -13,6 +20,7 @@ const initialState = {
   data: {
     students: [],
     tutors: [],
+    tutorRatings: [],
     tutorRequests: [],
     details: {},
     dashboard: {},
@@ -20,12 +28,10 @@ const initialState = {
   total: 0,
   search: "",
   filter: null,
+  isFilterOpen: false,
   userFullName: "",
   isModalOpen: false,
   selectedUserId: null,
-  // email: "",
-  // paymentStats: "",
-  // lessonDurationWeek: "",
 };
 
 const usersSlice = createSlice({
@@ -37,13 +43,7 @@ const usersSlice = createSlice({
     },
 
     setFilter: (state, { payload }) => {
-      state.filter = payload
-    },
-
-    clearFilter: (state) => {
-      state.email = "";
-      state.paymentStats = "";
-      state.lessonDurationWeek = "";
+      state.filter = payload;
     },
 
     setLoading: ({ loading }, { payload }) => {
@@ -52,6 +52,10 @@ const usersSlice = createSlice({
 
     setFullName: (state, { payload }) => {
       state.userFullName = payload;
+    },
+
+    setIsFilterOpen: (state, { payload }) => {
+      state.isFilterOpen = payload;
     },
 
     setIsModalOpen: (state, { payload }) => {
@@ -90,12 +94,26 @@ const usersSlice = createSlice({
     builder.addCase(getTutors.fulfilled, (state, { payload }) => {
       state.loading.get = false;
       state.data.tutors = payload.data;
-      state.total = payload.totalCount
+      state.total = payload.totalCount;
     });
     builder.addCase(getTutors.rejected, (state, { payload }) => {
       state.loading.get = false;
       state.data.tutors = [];
       addNotification(payload);
+    });
+
+    // Get Tutor Details
+    builder.addCase(getTutorDetails.pending, (state) => {
+      state.loading.get = true;
+      state.data.details = {};
+    });
+    builder.addCase(getTutorDetails.fulfilled, (state, { payload }) => {
+      state.loading.get = false;
+      state.data.details = payload.data;
+    });
+    builder.addCase(getTutorDetails.rejected, (state) => {
+      state.loading.get = false;
+      state.data.details = {};
     });
 
     // Get Tutors Requests
@@ -106,7 +124,7 @@ const usersSlice = createSlice({
     builder.addCase(getTutorRequests.fulfilled, (state, { payload }) => {
       state.loading.get = false;
       state.data.tutorRequests = payload.data;
-      state.total = payload.totalCount
+      state.total = payload.totalCount;
     });
     builder.addCase(getTutorRequests.rejected, (state) => {
       state.loading.get = false;
@@ -121,7 +139,7 @@ const usersSlice = createSlice({
     builder.addCase(getStudents.fulfilled, (state, { payload }) => {
       state.loading.get = false;
       state.data.students = payload.data;
-      state.total = payload.totalCount
+      state.total = payload.totalCount;
     });
     builder.addCase(getStudents.rejected, (state, { payload }) => {
       state.loading.get = false;
@@ -136,13 +154,14 @@ const usersSlice = createSlice({
     });
     builder.addCase(getOne.fulfilled, (state, { payload }) => {
       state.loading.get = false;
-      state.data.details = payload;
+      state.data.details = payload.data;
     });
-    builder.addCase(getOne.rejected, (state) => {
+    builder.addCase(getOne.rejected, (state, { payload }) => {
       state.loading.get = false;
       state.data.details = {};
+      addNotification(payload);
     });
-  }
+  },
 });
 
 export const usersSelector = (state) => state.users;

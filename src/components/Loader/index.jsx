@@ -1,7 +1,3 @@
-import { Spin } from "antd";
+import { Row, Spin } from "antd";
 
-export const Loader = () => (
-  <Spin tip="Loading" size="large">
-    <div className="content" />
-  </Spin>
-);
+export const Loader = () => <Row justify="center"><Spin size="large"></Spin></Row>

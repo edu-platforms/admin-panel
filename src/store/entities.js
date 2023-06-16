@@ -4,7 +4,9 @@ export const ENTITIES = {
   upload: "upload",
   videos: "videos",
   courses: "courses",
+  ratings: "ratings",
   reports: "reports",
+  general: "general",
   students: "student",
   breadcrumb: "breadcrumb",
 };

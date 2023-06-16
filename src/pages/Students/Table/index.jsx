@@ -12,21 +12,25 @@ export const StudentTable = () => {
     data: { students },
     total,
     search,
+    filter,
     loading,
   } = useSelector(usersSelector);
-  const { page, limit, handlePageChange, handleShowSizeChange } =
-    usePaginator();
+  const { 
+    page, 
+    limit, 
+    handlePageChange, 
+    handleShowSizeChange 
+  } = usePaginator();
 
-  console.log(students);
-  const getData = async () => {
-    const params = { search, page, limit };
+  const getData = async (filter) => {
+    const params = filter ? { search, page, limit, ...filter } : { search, page, limit }
 
     dispatch(getStudents(params));
   };
 
   useEffect(() => {
-    getData();
-  }, [search, page, limit]);
+    filter ? getData(filter) : getData()
+  }, [search, page, limit, filter]);
 
   return (
     <Table

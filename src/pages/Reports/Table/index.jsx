@@ -27,14 +27,13 @@ export const TutorTable = () => {
     getData();
   }, [search, page, limit]);
 
-  console.log(reports);
   return (
     <Table
       rowKey="id"
       bordered
+      loading={loading.get}
       columns={reportColumn}
       dataSource={reports}
-      loading={loading}
       pagination={{
         onChange: handlePageChange,
         onShowSizeChange: handleShowSizeChange,

@@ -1,25 +1,39 @@
 import { useBreadCrumbs, useDebounce } from "@/hooks";
 import { studentAllBreadcrumb } from "./constants";
-import { useSelector } from "react-redux";
-import { userActions } from "@/store";
-import { Header, MainSearch } from "@/components";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions, usersSelector } from "@/store";
+import { FilterOutlined } from "@ant-design/icons";
+import { Button, Row } from "antd";
+import { MainSearch, Title } from "@/components";
 import { studentsDictionary } from "./dictionary";
-import { Filter } from './Filter';
 import { StudentTable } from './Table';
-// import PaymentHistory from "./Details";
+import { Filter } from './Filter';
 
 export const AllStudents = () => {
-
-  const { filterTab } = useSelector((state) => state.students)
+  const dispatch = useDispatch()
+  const { isFilterOpen } = useSelector(usersSelector)
   const { onSearch } = useDebounce(userActions.setQuery);
 
+  const openCloseFilter = () => dispatch(userActions.setIsFilterOpen(!isFilterOpen)) 
+  
   useBreadCrumbs(studentAllBreadcrumb);
 
   return (
     <>
-      <Header route='Students' title={studentsDictionary.title} />
+      <Row justify="space-between">
+        <Title>{studentsDictionary.title}</Title>
+
+        <Button 
+          size="large" 
+          type="primary" 
+          icon={<FilterOutlined />} 
+          onClick={openCloseFilter}
+        >
+          {studentsDictionary.filter}
+        </Button>
+      </Row>
       <MainSearch onChange={onSearch} />
-      {filterTab ? <Filter /> : null}
+      {isFilterOpen ? <Filter /> : null}
       <StudentTable />
     </>
   )

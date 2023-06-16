@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOne, usersSelector } from "@/store";
+import { dateFormatter } from "@/utils";
 import { Title } from "@/components";
 import { Form, Row, Col, Image, Card, Space, Typography, Button } from "antd";
 import { ReadOnlyField, ReadOnlyTextArea } from "../Fields";
 import { requestDictionary } from "@/pages/Tutors/Requests/dictionary";
 import classnameBind from "classnames/bind";
 import styles from "../details.module.scss";
-import { dateFormatter } from "@/utils";
 
 const cn = classnameBind.bind(styles);
 
 export const TutorDetail = () => {
-  const { id } = useParams()
   const dispatch = useDispatch()
+  const { id } = useParams()
   const [form] = Form.useForm();
   const [certifications, setCertifications] = useState([])
   const { data: { details } } = useSelector(usersSelector);
@@ -27,7 +27,6 @@ export const TutorDetail = () => {
     dispatch(getOne({ id }));
   };
 
-  console.log({details});
   const setData = () => {
     if (details) {
       for (let key in details) {
@@ -43,7 +42,6 @@ export const TutorDetail = () => {
     }
   }
 
-  console.log(details);
   useEffect(() => {
     getData();
   }, [id]);

@@ -1,3 +1,8 @@
+import dayjs from 'dayjs';
+
+const DATE_FORMAT = 'YYYY-MM-DD';
+const FULL_DATE_FORMAT = `${DATE_FORMAT} HH:MM`;
+
 export const dateFormatter = (date) => {
   const formattedDate = new Date(date);
 
@@ -23,3 +28,9 @@ export const dateFormatter = (date) => {
     month[formattedDate.getMonth()]
   }.${year} ${time}`;
 };
+
+export const getDateFormat = (date) => dayjs(date).format();
+
+export const dateFormat = (date) => dayjs(date).format(DATE_FORMAT);
+
+export const getFullDateFormat = (date) => dayjs(date).format(FULL_DATE_FORMAT);

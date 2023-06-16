@@ -4,32 +4,7 @@ import { Tag } from "antd";
 import { ROUTES } from '@/constants';
 import { makeFullName } from "@/utils";
 
-
-export const studentAllBreadcrumb = [{ label: "Students" }];
-
-export const dataSource = [
-  {
-    id: "1",
-    studentName: "Asad",
-    plan: "2 hours",
-    email: "your-email-here@gmail.com",
-    paymentStatus: 'Success',
-  },
-  {
-    id: "2",
-    studentName: "AAA",
-    plan: "1 hours",
-    email: "your@Mhere@gmail.com",
-    paymentStatus: 'Cancel',
-  },
-  {
-    id: "3",
-    studentName: "ZzZ",
-    plan: "1 hours",
-    email: "your@Mhere@gmail.com",
-    paymentStatus: 'Waiting',
-  },
-];
+const colors = ['#059E14', '#DC2626', '#E9C923'];
 
 export const studentColumn = [
   {
@@ -53,25 +28,27 @@ export const studentColumn = [
     title: studentsDictionary.columns.paymentStatus,
     align: "center",
     dataIndex: "paymentStatus",
-    render: (_, { paymentStatus }) => {
-      let color;
-      if (paymentStatus === 'Success') color = '#059E14';
-      else if (paymentStatus === 'Cancel') color = '#DC2626';
-      else color = '#E9C923';
-
-      return <Tag key={paymentStatus} style={{ color }}>{paymentStatus}</Tag>
+    render: (status) => {      
+      return <Tag color={colors[status === 'Success' && 0 || status === 'Cancel' && 1|| 2]}>{status}</Tag>
     }
   },
   {
     key: "action",
     title: studentsDictionary.columns.action,
     align: "center",
-    render: (value, record) => <AllStudentActions record={record} />,
+    render: (_, record) => <AllStudentActions record={record} />,
   },
 ];
+
+export const paymentOptions = [
+  { value: "unsubscribe", label: "Unsubscribe" },
+  { value: "subscribe", label: "Subscribe" },
+]
 
 export const studentsDetailBreadcrumb = [
   { label: "Students" },
   { label: "All students", link: ROUTES.students },
   { label: "Payment history" },
 ];
+
+export const studentAllBreadcrumb = [{ label: "Students" }];

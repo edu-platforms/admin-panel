@@ -5,18 +5,15 @@ import { addNotification } from "@/utils";
 import { history, loadings } from "@/utils";
 import { ROUTES } from "@/constants";
 
-export const getDashboard = createAsyncThunk(
-  "get/dashboard",
-  async () => {
-    try {
-      const res = await usersApi.getDashboard();
+export const getDashboard = createAsyncThunk("get/dashboard", async () => {
+  try {
+    const res = await usersApi.getDashboard();
 
-      if (res.data) return res.data
-    } catch (e) {
-      addNotification(e);
-    }
+    if (res.data) return res.data;
+  } catch (e) {
+    addNotification(e);
   }
-);
+});
 
 export const getTutors = createAsyncThunk(
   "get/tutors",
@@ -24,7 +21,18 @@ export const getTutors = createAsyncThunk(
     try {
       return await usersApi.getTutors(params);
     } catch (e) {
-      return rejectWithValue(e)
+      return rejectWithValue(e);
+    }
+  }
+);
+
+export const getTutorDetails = createAsyncThunk(
+  "get/tutor-details",
+  async (params, { rejectWithValue }) => {
+    try {
+      return await usersApi.getTutorDetails(params);
+    } catch (e) {
+      return rejectWithValue(e);
     }
   }
 );
@@ -35,7 +43,7 @@ export const getTutorRequests = createAsyncThunk(
     try {
       const res = await usersApi.getTutorRequests(params);
 
-      if (res.data) return res
+      if (res.data) return res;
     } catch (e) {
       addNotification(e);
     }
@@ -48,20 +56,18 @@ export const getStudents = createAsyncThunk(
     try {
       return await usersApi.getStudents(params);
     } catch (e) {
-      return rejectWithValue(e)
+      return rejectWithValue(e);
     }
   }
 );
 
 export const getOne = createAsyncThunk(
   "get/one",
-  async (params) => {
+  async (params, { rejectWithValue }) => {
     try {
-      const res = await usersApi.getOne(params);
-
-      if (res.data) return res.data
+      return await usersApi.getOne(params);
     } catch (e) {
-      addNotification(e);
+      rejectWithValue(e);
     }
   }
 );
@@ -75,8 +81,8 @@ export const acceptReject = createAsyncThunk(
       const res = await usersApi.acceptReject(params);
 
       if (res.data) {
-        addNotification("Success")
-        history.push(ROUTES.tutors)
+        addNotification("Success");
+        history.push(ROUTES.tutors);
       }
     } catch (e) {
       addNotification(e);

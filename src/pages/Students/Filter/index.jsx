@@ -1,74 +1,103 @@
-import { Col, DatePicker, Form, Input, Row } from "antd";
-import { PrimaryBtn } from "@/components";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions, usersSelector } from "@/store";
+import { userActions } from "@/store";
+import { Col, Form, Input, Row, Select, Space } from "antd";
+import { PrimaryBtn } from "@/components";
 import { videosDictionary } from "@/pages/Videos/dictionary";
+import { studentsDictionary } from "../dictionary";
+import { paymentOptions } from "../constants";
+import { generalSelector, getLessonDurationWeek } from "@/store";
 
-export function Filter() {
+export const Filter = () => {
   const dispatch = useDispatch();
-  const { RangePicker } = DatePicker;
+  const [form] = Form.useForm()
+  const { loading, data: {lessonDurationWeeks} } = useSelector(generalSelector)
 
-  const { filter } = useSelector(usersSelector)
-
-  console.log(filter);
-  const clearFilter = () => dispatch(userActions.clearFilter());
-
-  const handleFinish = (values) => {
-    dispatch(userActions.setFilter(values))
+  const clearFilter = () => {
+    form.resetFields();
+    dispatch(userActions.setFilter(null))
   }
 
+  const handleFinish = (values) => dispatch(userActions.setFilter(values))
+
+  const options = useMemo(() => lessonDurationWeeks.map(item => ({
+    value: item.id,
+    label: `${item.minut} minutes`
+  })), [lessonDurationWeeks]);
+
+  useEffect(() => {
+    dispatch(getLessonDurationWeek())
+  }, [])
+
   return (
-    <div style={{ marginBottom: 40 }}>
-      <Form autoComplete="false" onFinish={handleFinish}>
-        <Row gutter={12} justify="space-between">
+      <Form form={form} autoComplete="false" onFinish={handleFinish}>
+        <Row gutter={12}>
           <Col span={5}>
             <Form.Item
               name="email"
+              rules={[
+                {
+                  required: true,
+                  type: 'email'
+                }
+              ]}
             >
               <Input
-                placeholder={videosDictionary.filterByStudent}
+                placeholder={studentsDictionary.filterByEmail}
               />
             </Form.Item>
           </Col>
 
           <Col span={5}>
             <Form.Item
-              name="tutorName"
+              name="paymentStatus"             
+              rules={[
+                {
+                  required: true,
+                  message: studentsDictionary.paymentMessage
+                },
+              ]}
             >
-              <Input
-                placeholder={videosDictionary.filterByTutor}
+              <Select
+                loading={loading}
+                placeholder={studentsDictionary.sortByStatus}
+                options={paymentOptions}
               />
             </Form.Item>
+          </Col>
+
+          <Col span={5}>
+            <Form.Item
+                name="lessonDurationWeek"             
+                rules={[
+                  {
+                    required: true,
+                    message: studentsDictionary.durationMessage
+                  },
+                ]}
+              >
+                <Select
+                  placeholder={studentsDictionary.sortByDuration}
+                  options={options}
+                />
+              </Form.Item>
           </Col>
 
           <Col span={6}>
-            <Form.Item
-              name="lessonDurationWeek"
-            >
-              <RangePicker
-                format="MM-DD-YYYY"
-                size="small"
-              />
-            </Form.Item>
-          </Col>
+            <Space>
 
-          <Col span={4}>
             <PrimaryBtn
+              btn
+              type="dashed"
               onClick={clearFilter}
-              style={{
-                backgroundColor: "#edeef7",
-                color: "#4763E4",
-              }}
             >
               {videosDictionary.clearFilter}
             </PrimaryBtn>
-          </Col>
 
-          <Col span={4}>
-            <PrimaryBtn onClick={""}>{videosDictionary.showData}</PrimaryBtn>
+            <PrimaryBtn>{videosDictionary.showData}</PrimaryBtn>
+            </Space>
           </Col>
         </Row>
       </Form>
-    </div>
   );
 }
