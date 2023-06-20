@@ -6,7 +6,7 @@ export const ENTITIES = {
   courses: "courses",
   ratings: "ratings",
   reports: "reports",
-  general: "general",
+  settings: "settings",
   students: "student",
   breadcrumb: "breadcrumb",
 };

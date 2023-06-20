@@ -4,4 +4,4 @@ export { uploadApi } from "./upload";
 export { reportsApi } from "./reports";
 export { coursesApi } from "./courses";
 export { ratingsApi } from "./ratings";
-export { generalApi } from "./general";
+export { settingsApi } from "./settings";

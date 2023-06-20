@@ -8,7 +8,7 @@ import { Form, Row, Col, Typography, Pagination } from "antd";
 import { Feedback } from "../Feedback";
 import { ReadOnlyField } from "../Fields";
 import { allTutorDictionary } from "../../dictionary";
-import { getPaginationParams } from "@/utils";
+import { dateFormat, getPaginationParams } from "@/utils";
 
 export const TutorRating = () => {
   const dispatch = useDispatch()
@@ -16,10 +16,8 @@ export const TutorRating = () => {
   const { id } = useParams();
   const { ratings, total } = useSelector(ratingsSelector);
   const { data: { details } } = useSelector(usersSelector);
-  const { page, limit, handlePageChange, handleShowSizeChange } =
-    usePaginator();
+  const { page, limit, handlePageChange, handleShowSizeChange } = usePaginator();
 
-    console.log(details);
   const getData = () => {
     if (!id) {
       history.back();
@@ -32,7 +30,11 @@ export const TutorRating = () => {
   const setData = () => {
     if (details) {
       for (let key in details) {
-        form.setFieldsValue({ [key]: details[key] });
+        if(key === 'createdAt'){
+          form.setFieldsValue({ [key]: dateFormat(details[key]) });
+        } else {
+          form.setFieldsValue({ [key]: details[key] });
+        }
       }
     }
   };
@@ -61,7 +63,7 @@ export const TutorRating = () => {
           <Col span={12}>
             <ReadOnlyField
               name="createdAt"
-             label={allTutorDictionary.join}  
+              label={allTutorDictionary.join}  
             />
           </Col>
 

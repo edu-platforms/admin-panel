@@ -1,17 +1,16 @@
 import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "@/store";
+import { settingsSelector, getLessonDurationWeek, userActions } from "@/store";
 import { Col, Form, Input, Row, Select, Space } from "antd";
 import { PrimaryBtn } from "@/components";
 import { videosDictionary } from "@/pages/Videos/dictionary";
 import { studentsDictionary } from "../dictionary";
 import { paymentOptions } from "../constants";
-import { generalSelector, getLessonDurationWeek } from "@/store";
 
 export const Filter = () => {
   const dispatch = useDispatch();
   const [form] = Form.useForm()
-  const { loading, data: {lessonDurationWeeks} } = useSelector(generalSelector)
+  const { loading, data: {lessonDurationWeeks} } = useSelector(settingsSelector)
 
   const clearFilter = () => {
     form.resetFields();
@@ -59,7 +58,6 @@ export const Filter = () => {
               ]}
             >
               <Select
-                loading={loading}
                 placeholder={studentsDictionary.sortByStatus}
                 options={paymentOptions}
               />
@@ -77,6 +75,7 @@ export const Filter = () => {
                 ]}
               >
                 <Select
+                  loading={loading.get}
                   placeholder={studentsDictionary.sortByDuration}
                   options={options}
                 />

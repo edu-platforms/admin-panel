@@ -12,6 +12,8 @@ export const endpoints = {
 
   tutors: '/tutor',
   lessonDurationWeek: '/lesson-duration-week',
+  configurations: '/configuration',
+  plans: '/subscription-plan',
   tutorRequests: '/tutor-process',
   acceptReject: '/accept-reject/{param}',
   students: '/student',

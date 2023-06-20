@@ -6,7 +6,7 @@ import uploadReducer from "./upload/features";
 import videosReducer from "./videos/features";
 import ratingsReducer from "./ratings/features";
 import coursesReducer from "./courses/features";
-import generalReducer from "./general/features";
+import settingsReducer from "./settings/features";
 import studentsReducer from "./students/features";
 import breadcrumbReducer from "./breadcrumb/features";
 
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   reports: reportReducer,
   courses: coursesReducer,
   ratings: ratingsReducer,
-  general: generalReducer,
+  settings: settingsReducer,
   students: studentsReducer,
   breadcrumb: breadcrumbReducer,
 });
@@ -50,10 +50,6 @@ export * from "./breadcrumb/features";
 // Videos
 export * from "./videos/features";
 
-// General
-export * from "./general/actions";
-export * from "./general/features";
-
 // Course
 export * from "./courses/actions";
 export * from "./courses/features";
@@ -61,6 +57,10 @@ export * from "./courses/features";
 // Ratings
 export * from "./ratings/actions";
 export * from "./ratings/features";
+
+// Settings
+export * from "./settings/actions";
+export * from "./settings/features";
 
 // Reports
 export * from "./reports/actions";

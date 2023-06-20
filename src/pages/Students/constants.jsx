@@ -4,7 +4,7 @@ import { Tag } from "antd";
 import { ROUTES } from '@/constants';
 import { makeFullName } from "@/utils";
 
-const colors = ['#059E14', '#DC2626', '#E9C923'];
+const colors = ['green', 'red'];
 
 export const studentColumn = [
   {
@@ -28,9 +28,7 @@ export const studentColumn = [
     title: studentsDictionary.columns.paymentStatus,
     align: "center",
     dataIndex: "paymentStatus",
-    render: (status) => {      
-      return <Tag color={colors[status === 'Success' && 0 || status === 'Cancel' && 1|| 2]}>{status}</Tag>
-    }
+    render: (status) => <Tag color={colors[status === 'subscribe' && 0 || status === 'unsubscribe' && 1|| 2]}>{status}</Tag>
   },
   {
     key: "action",

@@ -15,4 +15,7 @@ export const constantsDictionary = {
   reports: "Reports",
   salary: "Salary",
   settings: "Settings",
+  configurations: 'Configuration',
+  plans: 'Plans',
+  duration: 'Lesson Duration'
 };

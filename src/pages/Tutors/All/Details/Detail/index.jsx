@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOne, usersSelector } from "@/store";
 import { dateFormatter } from "@/utils";
 import { Title } from "@/components";
-import { Form, Row, Col, Image, Card, Space, Typography, Button } from "antd";
+import { Form, Row, Col, Image, Card, Space, Typography, Button, DatePicker } from "antd";
 import { ReadOnlyField, ReadOnlyTextArea } from "../Fields";
 import { requestDictionary } from "@/pages/Tutors/Requests/dictionary";
 import classnameBind from "classnames/bind";
 import styles from "../details.module.scss";
+import dayjs from "dayjs";
 
 const cn = classnameBind.bind(styles);
 
@@ -27,14 +28,25 @@ export const TutorDetail = () => {
     dispatch(getOne({ id }));
   };
 
+  // console.log(form.getFieldsValue());
   const setData = () => {
     if (details) {
       for (let key in details) {
+        // const { dateFrom, dateTo } = details.educations[0];
+        // form.setFieldValue({ date: { date: [dayjs(dateFrom), dayjs(dateTo)] } });
 
         if (key === "birthday") {
           form.setFieldsValue({ [key]: dateFormatter(details[key]) });
         } else {
           form.setFieldsValue({ [key]: details[key] });
+
+          if(key === 'educations'){
+            details[key].map(item => ({
+              ...item,
+              date: [dayjs(item.dateFrom), dayjs(item.dateTo)]
+            }))
+            console.log(details[key]);
+          }
         }
       }
 
@@ -128,7 +140,7 @@ export const TutorDetail = () => {
                           <ReadOnlyField {...restField} name={[name, "degree"]} />
                         </Col>
                         <Col span={12}>
-                          <ReadOnlyField {...restField} name={[name, "dateFrom", "dateTo"]} />
+                          <DatePicker.RangePicker {...restField} name={[name, "date"]} />
                         </Col>
                       </Row>
                     </Col>
