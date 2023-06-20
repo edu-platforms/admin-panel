@@ -32,8 +32,8 @@ export const Menu = () => {
       mode="inline"
       items={mainMenuItems}
       selectedKeys={[selectedMenuOpenKey]}
-      defaultSelectedKeys={[pathname]}
       defaultOpenKeys={[selectedMenuOpenKey]}
+      defaultSelectedKeys={[pathname]}
       onClick={handleClick}
     />
   );

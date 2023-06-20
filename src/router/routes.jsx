@@ -195,33 +195,28 @@ export const Routes = ({ isAuth }) =>
               ],
             },
             {
-              path: ROUTES.settings,
-              children: [
-                {
-                  path: ROUTES.configurations,
-                  element: (
-                    <Suspense fallback={<Loader />}>
-                      <Configuration />
-                    </Suspense>
-                  ),
-                },
-                {
-                  path: ROUTES.plans,
-                  element: (
-                    <Suspense fallback={<Loader />}>
-                      <Plans />
-                    </Suspense>
-                  ),
-                },
-                {
-                  path: ROUTES.lessonDuration,
-                  element: (
-                    <Suspense fallback={<Loader />}>
-                      <Durations />
-                    </Suspense>
-                  ),
-                },
-              ],
+              path: ROUTES.configurations,
+              element: (
+                <Suspense fallback={<Loader />}>
+                  <Configuration />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.plans,
+              element: (
+                <Suspense fallback={<Loader />}>
+                  <Plans />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.lessonDuration,
+              element: (
+                <Suspense fallback={<Loader />}>
+                  <Durations />
+                </Suspense>
+              ),
             },
           ],
         },
