@@ -1,6 +1,6 @@
+import { getFullDateFormat } from "@/utils";
 import { RequestActions } from "./Actions";
 import { courseDictionary } from "./dictionary";
-import { dateFormatter } from "@/utils";
 import { ROUTES } from "@/constants";
 
 export const courseDetailsColumn = [
@@ -15,7 +15,7 @@ export const courseDetailsColumn = [
   {
     title: courseDictionary.columns.createdAt,
     dataIndex: "createdAt",
-    render: (value) => dateFormatter(value),
+    render: (value) => getFullDateFormat(value)
   },
   {
     title: courseDictionary.columns.actions,

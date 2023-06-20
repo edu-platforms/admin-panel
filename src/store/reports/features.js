@@ -1,15 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ENTITIES } from "../entities";
-import { getReports } from "./actions";
+import { getReports, solveReport } from "./actions";
 import { addNotification } from "@/utils";
 
 const initialState = {
-  loading: false,
+  loading: {
+    get: false,
+    put: false,
+  },
   reports: [],
   total: 0,
   search: "",
   isModalOpen: false,
-  reporter: null
+  reporter: null,
 };
 
 const reportsSlice = createSlice({
@@ -21,7 +24,7 @@ const reportsSlice = createSlice({
     },
 
     setReporter: (state, { payload }) => {
-      state.reporter = payload
+      state.reporter = payload;
     },
 
     setIsModalOpen: (state, { payload }) => {
@@ -29,21 +32,38 @@ const reportsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // Get reports
     builder.addCase(getReports.pending, (state) => {
-      state.loading = true;
+      state.loading.get = true;
       state.reports = [];
     });
     builder.addCase(getReports.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      state.reports = payload.data
-      state.total = payload.totalCount
+      state.loading.get = false;
+      state.reports = payload.data;
+      state.total = payload.totalCount;
     });
     builder.addCase(getReports.rejected, (state, { payload }) => {
-      state.loading = false;
+      state.loading.get = false;
       state.reports = [];
       addNotification(payload);
     });
-  }
+
+    // Solve report
+    builder.addCase(solveReport.pending, (state) => {
+      state.loading.put = true;
+    });
+    builder.addCase(solveReport.fulfilled, (state, { payload }) => {
+      state.loading.put = false;
+      const report = state.reports.find((report) => report.id === payload.id);
+
+      report.isSolve = payload.isSolve;
+    });
+    builder.addCase(solveReport.rejected, (state, { payload }) => {
+      console.log("ok");
+      state.loading.put = false;
+      addNotification(payload);
+    });
+  },
 });
 
 export const reportsSelector = (state) => state.reports;

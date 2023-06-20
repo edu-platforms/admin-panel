@@ -1,8 +1,9 @@
 import { lazy } from "react";
 import { Loader } from "@/components";
 
-const handleCatchChunkError = () => {
-  window.location.reload();
+const handleCatchChunkError = (e) => {
+  console.log(e);
+  // window.location.reload();
 
   return { default: Loader };
 };
@@ -93,7 +94,7 @@ export const TutorsAllDetails = lazy(() =>
 
 export const AllStudents = lazy(
   () => import("@/pages").then(({ AllStudents }) => ({ default: AllStudents }))
-  // .catch(handleCatchChunkError)
+  .catch(handleCatchChunkError)
 );
 
 export const PaymentHistory = lazy(
@@ -101,7 +102,7 @@ export const PaymentHistory = lazy(
     import("@/pages").then(({ PaymentHistory }) => ({
       default: PaymentHistory,
     }))
-  // .catch(handleCatchChunkError)
+  .catch(handleCatchChunkError)
 );
 
 export const AllReports = lazy(() =>
@@ -121,8 +122,21 @@ export const SalaryDetails = lazy(() =>
     .catch(handleCatchChunkError)
 );
 
-export const Settings = lazy(() =>
+// SETTINGS
+export const Plans = lazy(() =>
   import("@/pages")
-    .then(({ Settings }) => ({ default: Settings }))
+    .then(({ Plans }) => ({ default: Plans }))
+    .catch(handleCatchChunkError)
+);
+
+export const Durations = lazy(() =>
+  import("@/pages")
+    .then(({ Durations }) => ({ default: Durations }))
+    .catch(handleCatchChunkError)
+);
+
+export const Configuration = lazy(() =>
+  import("@/pages")
+    .then(({ Configuration }) => ({ default: Configuration }))
     .catch(handleCatchChunkError)
 );

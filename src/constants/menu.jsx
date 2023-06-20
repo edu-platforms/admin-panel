@@ -66,7 +66,20 @@ export const mainMenuList = [
   },
   {
     label: constantsDictionary.settings,
-    key: ROUTES.settings,
     icon: <SettingOutlined />,
+    children: [
+      {
+        label: constantsDictionary.configurations,
+        key: ROUTES.configurations,
+      },
+      {
+        label: constantsDictionary.plans,
+        key: ROUTES.plans,
+      },
+      {
+        label: constantsDictionary.duration,
+        key: ROUTES.lessonDuration,
+      },
+    ],
   },
 ];

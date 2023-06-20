@@ -40,8 +40,8 @@ svg:not([fill]) {
 
 input,
 textarea {
-  padding: 14px !important;
   border-radius: 10px !important;
+  padding: 14px !important;
 }
 
 input::-webkit-outer-spin-button,
@@ -55,9 +55,10 @@ input::-webkit-inner-spin-button {
 }
 
 .ant-select-selector {
-  padding: 24px 14px !important;
-  display: flex !important;
   align-items: center !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  padding: 24px 14px !important;
 }
 
 .ant-breadcrumb {

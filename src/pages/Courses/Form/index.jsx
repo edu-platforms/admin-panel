@@ -63,7 +63,7 @@ export const CourseForm = ({ form, files, loading, setFiles, onFinish }) => {
                   <Row key={key} gutter={6}>
                     <Col span={22}>
                       <Input
-                        name={[name, "syllabus"]}
+                        name={[name, "name"]}
                         message={courseDictionary.enterSyllabus}
                         placeholder={courseDictionary.placeholders.syllabus}
                         {...restField}

@@ -1,33 +1,29 @@
 import { allTutorDictionary } from "./dictionary";
 import { View } from "@/components";
 import { ROUTES } from "@/constants";
-import { dateFormatter } from "@/utils";
+import { getFullDateFormat } from "@/utils";
 
 export const tutorColumn = [
   {
     title: allTutorDictionary.columns.name,
     dataIndex: "firstname",
-    key: "firstname",
     align: "center",
   },
   {
     title: allTutorDictionary.columns.surname,
     dataIndex: "lastname",
-    key: "lastname",
     align: "center",
   },
   {
     title: allTutorDictionary.columns.accent,
     dataIndex: "accent",
-    key: "accent",
     align: "center",
   },
   {
     title: allTutorDictionary.columns.join,
     dataIndex: "createdAt",
-    key: "createdAt",
     align: "center",
-    render: (value) => dateFormatter(value),
+    render: (value) => getFullDateFormat(value),
   },
   {
     title: allTutorDictionary.columns.actions,

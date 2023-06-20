@@ -6,25 +6,28 @@ import { Layout } from "@/modules";
 import { PublicRoutes } from "./PublicRoutes";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 import {
-  Dashboard,
+  Plans,
   Reset,
   SignIn,
+  Salary,
+  // Settings,
   CheckCode,
   SendEmail,
+  Durations,
   AllTutors,
-  AllStudents,
-  TutorRequests,
-  AllCourses,
-  CreateCourse,
-  CourseDetails,
+  Dashboard,
   AllVideos,
+  AllCourses,
+  AllReports,
+  AllStudents,
+  CreateCourse,
+  Configuration,
+  SalaryDetails,
+  TutorRequests,
+  CourseDetails,
+  PaymentHistory,
   TutorsAllDetails,
   TutorRequestDetails,
-  AllReports,
-  Salary,
-  SalaryDetails,
-  Settings,
-  PaymentHistory,
 } from "./lazy";
 
 export const Routes = ({ isAuth }) =>
@@ -36,6 +39,10 @@ export const Routes = ({ isAuth }) =>
           path: ROUTES.home,
           element: <Layout />,
           children: [
+            {
+              path: '*',
+              element: <Navigate to={ROUTES.dashboard} />,
+            },
             {
               index: true,
               element: <Navigate to={ROUTES.dashboard} replace />,
@@ -188,11 +195,28 @@ export const Routes = ({ isAuth }) =>
               ],
             },
             {
-              path: ROUTES.settings,
-              element:
+              path: ROUTES.configurations,
+              element: (
                 <Suspense fallback={<Loader />}>
-                  <Settings />
+                  <Configuration />
                 </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.plans,
+              element: (
+                <Suspense fallback={<Loader />}>
+                  <Plans />
+                </Suspense>
+              ),
+            },
+            {
+              path: ROUTES.lessonDuration,
+              element: (
+                <Suspense fallback={<Loader />}>
+                  <Durations />
+                </Suspense>
+              ),
             },
           ],
         },

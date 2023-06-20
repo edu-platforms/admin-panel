@@ -12,7 +12,6 @@ export const data = {
   name: "Saidalikhan",
   date: "2022-06-21",
   from: "USA",
-  photo: "https://picsum.photos/id/237/200/300",
   about:
     "All language. One world.Hello everyone! I do speak Chinese, English, Japanese, and Korean, and plan to learn español. I really know how difficult to learn a foreign language, and would like to share the secret. Normally, I prefer to explain by using the easiest target words, but if you want to understand them better from your language, I can also explain in the language that makes you feel more comfortable. According to your level, I will adjust the speed and vocabs picking. Take you to an immersive environment without going to China, a more comfortable and interesting  as talking with a close friend.",
   gender: "Male",
@@ -50,4 +49,5 @@ export const data = {
   ],
 };
 
+export const tutorDetailsKey = { rating: "rating", details: "details" };
 export const a = Array.from({ length: 4 }, () => Math.random());

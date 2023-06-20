@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { reportActions, reportsSelector } from '@/store/reports/features';
+import { reportActions, reportsSelector, solveReport } from '@/store';
+import { makeFullName } from '@/utils';
 import { allReportsDictionary } from '../dictionary';
 import { Modal, Form, Input, Button, Row, Col } from "antd";
 import { SuccessBtn } from '@/components';
 
 export const ReportsModal = () => {
     const dispatch = useDispatch()
-    const { reporter, isModalOpen } = useSelector(reportsSelector)
-    const labels = allReportsDictionary.labels;
     const [form] = Form.useForm();
-
+    const { loading, reporter, isModalOpen } = useSelector(reportsSelector)
+    const {event, teacher} = reporter
 
     const handleCancel = () => {
         form.resetFields();
@@ -17,9 +17,17 @@ export const ReportsModal = () => {
         dispatch(reportActions.setReporter(null))
     };
 
-    const handleFinishForm = (values) => {
-        console.log(values);
-        handleCancel();
+    const handleFinishForm = (value) => {
+        const params ={
+            id: reporter.id,
+            event: {id: event.id},
+            teacher: {id: teacher.id},
+            isSolve: true,
+            ...value
+        }
+        console.log('ok');
+
+        dispatch(solveReport({params, close: handleCancel}))
     };
 
     return (
@@ -37,34 +45,45 @@ export const ReportsModal = () => {
             >
                 <Row gutter={10}>
                     <Col span={12}>
-                        <Form.Item label={labels.fullName}>
-                            <Input readOnly value={reporter?.fullName} />
+                        <Form.Item label={allReportsDictionary.labels.fullName}>
+                            <Input readOnly value={makeFullName(teacher)} />
                         </Form.Item>
                     </Col>
 
                     <Col span={12}>
-                        <Form.Item label={labels.position}>
-                            <Input readOnly value={reporter?.position} />
+                        <Form.Item label={allReportsDictionary.labels.position}>
+                            <Input readOnly value={teacher.displayname} />
                         </Form.Item>
                     </Col>
                 </Row>
 
                 <Form.Item
                     name="descr"
-                    label={labels.reason}
+                    label={allReportsDictionary.labels.reason}
                     rules={[{ required: true, min: 10 }]}
+                    initialValue={reporter.descr}
                 >
-                    <Input.TextArea autoSize={{ minRows: 2, maxRows: 5 }} />
+                    <Input.TextArea 
+                        readOnly={reporter.isSolve} 
+                        autoSize={{ minRows: 2, maxRows: 5 }} 
+                    />
                 </Form.Item>
 
                 <Row justify="space-between">
-                    <Button
-                        htmlType='submit'
-                        size='large'
-                        type='primary'
-                    >
-                        {allReportsDictionary.solve}
-                    </Button>
+                    {
+                        !reporter.isSolve ? 
+                            <Button
+                                loading={loading.put}
+                                disabled={loading.put}
+                                htmlType='submit'
+                                size='large'
+                                type='primary'
+                            >
+                                {allReportsDictionary.solve}
+                            </Button> 
+                            : 
+                            null
+                    }
 
                     <SuccessBtn size='large'>{allReportsDictionary.viewRecord}</SuccessBtn>
                 </Row>

@@ -3,6 +3,8 @@ import { RequestActions } from "./Actions";
 import { allReportsDictionary } from "./dictionary";
 import { dateFormatter, makeFullName } from "@/utils";
 
+const colors = ['#43AF31', '#4763E4'];
+
 export const reportColumn = [
   {
     title: allReportsDictionary.columns.title,
@@ -23,14 +25,12 @@ export const reportColumn = [
   },
   {
     title: allReportsDictionary.columns.status,
-    dataIndex: "isActive",
+    dataIndex: "isSolve",
     align: "center",
     render: (value) =>
-      <Tag color={value === "IsActive" ? "green" : "blue"}>
-        {value === "IsActive"
-          ? allReportsDictionary.active
-          : allReportsDictionary.solved}
-      </Tag>,
+      <Tag color={colors[value && 1 || 0]}>
+        {value ? allReportsDictionary.solved: allReportsDictionary.active}
+      </Tag>
   },
   {
     title: allReportsDictionary.columns.actions,

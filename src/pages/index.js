@@ -1,11 +1,10 @@
 export * from "./Auth";
 export * from "./Videos";
 export * from "./Tutors";
+export * from "./Salary";
 export * from "./Courses";
 export * from "./Students";
 export * from "./Reports";
-export * from "./Salary";
-export { Settings } from "./Settings";
+export * from "./Settings";
 export { Dashboard } from "./Dashboard";
 export { AllVideos } from "./Videos";
-// export { AllStudents } from './Students/All';

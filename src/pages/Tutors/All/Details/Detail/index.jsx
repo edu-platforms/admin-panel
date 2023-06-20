@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOne, usersSelector } from "@/store";
+import { dateFormatter } from "@/utils";
 import { Title } from "@/components";
-import { Form, Row, Col, Image, Card, Space, Typography, Button } from "antd";
+import { Form, Row, Col, Image, Card, Space, Typography, Button, DatePicker } from "antd";
 import { ReadOnlyField, ReadOnlyTextArea } from "../Fields";
 import { requestDictionary } from "@/pages/Tutors/Requests/dictionary";
 import classnameBind from "classnames/bind";
 import styles from "../details.module.scss";
-import { dateFormatter } from "@/utils";
+import dayjs from "dayjs";
 
 const cn = classnameBind.bind(styles);
 
 export const TutorDetail = () => {
-  const { id } = useParams()
   const dispatch = useDispatch()
+  const { id } = useParams()
   const [form] = Form.useForm();
   const [certifications, setCertifications] = useState([])
   const { data: { details } } = useSelector(usersSelector);
@@ -27,15 +28,25 @@ export const TutorDetail = () => {
     dispatch(getOne({ id }));
   };
 
-  console.log({details});
+  // console.log(form.getFieldsValue());
   const setData = () => {
     if (details) {
       for (let key in details) {
+        // const { dateFrom, dateTo } = details.educations[0];
+        // form.setFieldValue({ date: { date: [dayjs(dateFrom), dayjs(dateTo)] } });
 
         if (key === "birthday") {
           form.setFieldsValue({ [key]: dateFormatter(details[key]) });
         } else {
           form.setFieldsValue({ [key]: details[key] });
+
+          if(key === 'educations'){
+            details[key].map(item => ({
+              ...item,
+              date: [dayjs(item.dateFrom), dayjs(item.dateTo)]
+            }))
+            console.log(details[key]);
+          }
         }
       }
 
@@ -43,7 +54,6 @@ export const TutorDetail = () => {
     }
   }
 
-  console.log(details);
   useEffect(() => {
     getData();
   }, [id]);
@@ -130,7 +140,7 @@ export const TutorDetail = () => {
                           <ReadOnlyField {...restField} name={[name, "degree"]} />
                         </Col>
                         <Col span={12}>
-                          <ReadOnlyField {...restField} name={[name, "dateFrom", "dateTo"]} />
+                          <DatePicker.RangePicker {...restField} name={[name, "date"]} />
                         </Col>
                       </Row>
                     </Col>

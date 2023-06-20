@@ -15,6 +15,11 @@ class UsersApi extends Instance {
 
   getTutors = (params) => this.get(endpoints.tutors, { params });
 
+  getTutorDetails = (params) =>
+    this.get(dictionaryWithKeys(`${endpoints.tutors}/${endpoints.param}`, {
+      param: params.id,
+    }));
+
   getTutorRequests = (params) => this.get(endpoints.tutorRequests, { params });
 
   getStudents = (params) => this.get(endpoints.students, { params });

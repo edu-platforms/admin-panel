@@ -26,5 +26,7 @@ export const ROUTES = {
   salary: "/salary",
   salaryDetails: "/salary/:id",
 
-  settings: "/settings",
+  plans: "/plans",
+  lessonDuration: "/lesson-duration",
+  configurations: "/configurations",
 };

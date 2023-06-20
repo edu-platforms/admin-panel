@@ -11,6 +11,8 @@ class ReportsApi extends Instance {
   }
 
   getReports = (params) => this.get(endpoints.empty, { params });
+
+  solveReport = (params) => this.put(`/${params.id}`, params);
 }
 
 export const reportsApi = new ReportsApi(config);

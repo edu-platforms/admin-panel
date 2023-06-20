@@ -10,6 +10,8 @@ export const loadings = {
   delete: "delete",
 };
 
+export const makePercent = (value) => `${value}%`;
+
 export const makeErrMsg = (error) => {
   if (!error.response?.data) {
     return error.message;

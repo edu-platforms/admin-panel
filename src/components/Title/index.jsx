@@ -1,5 +1,3 @@
 import { Typography } from "antd";
 
-export const Title = ({ children }) => {
-  return <Typography.Title>{children}</Typography.Title>;
-};
+export const Title = ({ children }) => <Typography.Title>{children}</Typography.Title>;
